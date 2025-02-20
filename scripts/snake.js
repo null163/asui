@@ -8,8 +8,8 @@ let foodSpeed                  //食物阵出现速度
 let maxScore = Number(localStorage.getItem('maxScore'))
 let totalScore                 //总分数
 let snakeScore                 //储存分数
-let bound1                     //
-let bound2                     //
+let bound1                     //第一阶段分数
+let bound2                     //第二阶段分数
 let tail                       //尾巴要加多长
 let speedUp                    //是否加速
 let eatFood                    //是否吃到食物
