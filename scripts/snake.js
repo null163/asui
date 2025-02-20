@@ -96,8 +96,8 @@ function resize() {
   keyboardLeft = 115 / 659 * windowHeight
 
   tipWidth = 185 / 659 * windowHeight
-  tipHeight = 110 / 659 * windowHeight
-  tipTop = 490 / 659 * windowHeight
+  tipHeight = 250 / 659 * windowHeight
+  tipTop = 350 / 659 * windowHeight
   tipLeft = (windowWidth + gameWidth) / 2 + 50 / 659 * windowHeight
 
   pausePanelHeight = 150 / 659 * windowHeight
@@ -144,7 +144,7 @@ function resize() {
   whole.style.width = headWidth + 'px'
 
   scoreAnimate.style.width = headWidth + 'px'
-  scoreAnimate.style.height = headHeight + gameWidth + keyboardHeight + 'px'
+  scoreAnimate.style.height = headHeight + gameWidth + 'px'
   scoreAnimate.style.left = (windowWidth - headWidth) / 2 + 'px'
 
   keyFrames = [
@@ -375,7 +375,7 @@ function whetherEatFood() { //判断是否吃到食物
     }
   })
   movingFood.forEach((obj, idx) => {
-    if (snake[0].x === obj.x && snake[0].y === obj.y || snake[0].x === obj.nextX && snake[0].y === obj.nextY) {
+    if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
       eatFood = true
       animateFun(obj.id * 5)
       switch (obj.id) {
@@ -395,7 +395,7 @@ function whetherEatFood() { //判断是否吃到食物
       movingFood.splice(idx, 1)
     }
   })
-  if (food.length < 1) foodApplyAll()
+  if (food.length === 0 && movingFood.length === 0) foodApplyAll()
 }
 
 function whetherBumpSnake() { //判断是否撞到蛇身
@@ -755,23 +755,15 @@ function moveFood() {  //食物移动
   movingFood.forEach(obj => {
     if (obj.y === 2 && obj.x < 10 && judge(obj.x + 1, obj.y)) {
       obj.x++
-      obj.nextX = obj.x + 1
-      obj.nextY = obj.y
     }
     else if (obj.x === 10 && obj.y < 10 && judge(obj.x, obj.y + 1)) {
       obj.y++
-      obj.nextX = obj.x
-      obj.nextY = obj.y + 1
     }
     else if (obj.x > 2 && obj.y === 10 && judge(obj.x - 1, obj.y)) {
       obj.x--
-      obj.nextX = obj.x - 1
-      obj.nextY = obj.y
     }
     else if (obj.x === 2 && obj.y > 2 && judge(obj.x, obj.y - 1)) {
       obj.y--
-      obj.nextX = obj.x
-      obj.nextY = obj.y - 1
     }
   })
   // movingFood2.forEach(obj => {
@@ -835,16 +827,16 @@ function foodApply2() {  //食物刷新2(固定路线移动)
         X = myRandom(2, 9)
         if (judge(X, 2)) break
       }
-      movingFood.push({ x: X, y: 2, nextX: 3, nextY: 2, id: 2 })
+      movingFood.push({ x: X, y: 2, id: 2 })
       break
     case 2:
-      movingFood.push({ x: 10, y: 2, nextX: 10, nextY: 3, id: 2 })
+      movingFood.push({ x: 10, y: 2, id: 2 })
       break
     case 3:
-      movingFood.push({ x: 10, y: 10, nextX: 9, nextY: 10, id: 2 })
+      movingFood.push({ x: 10, y: 10, id: 2 })
       break
     case 4:
-      movingFood.push({ x: 2, y: 10, nextX: 2, nextY: 9, id: 2 })
+      movingFood.push({ x: 2, y: 10, id: 2 })
       break
   }
 }
@@ -1160,9 +1152,9 @@ continueButton.addEventListener('touchstart', function (e) {  //继续(触屏)
 })
 
 function againControl() {  //'再玩一次'按钮控制
-  if (gameOver && gameOverPanel.style.visibility === 'visible') {
+  if (gameOver && gameOverPanelContainer.style.visibility === 'visible') {
     gameOver = false
-    gameOverPanel.style.visibility = 'hidden'
+    gameOverPanelContainer.style.visibility = 'hidden'
     init()
   }
 }
@@ -1339,7 +1331,7 @@ document.addEventListener('touchmove', function (e) {  //方向键按住拖动
   })
 }, { passive: false })
 
-key.addEventListener('touchstart', function (e) {  //方向键点击
+document.addEventListener('touchstart', function (e) {  //方向键点击
   e.preventDefault();
   const touch = [...e.touches]
   touch.forEach((obj) => {
