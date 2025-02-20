@@ -154,7 +154,7 @@ body {
     /* width: 95px; */
     /* height: 40px; */
     position: absolute;
-    opacity: 0;
+    /* opacity: 0; */
     /* background-image: url(../assets/ON.png); */
     /* background-size: 95px 40px; */
 }
@@ -163,8 +163,8 @@ body {
     /* width: 73px; */
     /* height: 40px; */
     position: absolute;
-    opacity: 0;
-    background-image: url(../assets/continue.png);
+    /* opacity: 0; */
+    /* background-image: url(../assets/continue.png); */
     /* background-size: 73px 40px; */
 }
 
@@ -190,8 +190,8 @@ body {
     /* width: 100px; */
     /* height: 37px; */
     position: absolute;
-    opacity: 0;
-    background-image: url(../assets/again.png);
+    /* opacity: 0; */
+    /* background-image: url(../assets/again.png); */
     /* background-size: 100px 37px; */
 }
 
