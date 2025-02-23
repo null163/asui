@@ -4,7 +4,7 @@ let moveSpeed                  //移动速度
 let defaultSpeed               //默认速度
 let rushSpeed                  //冲刺速度
 let tailSpeed                  //尾巴变短速度
-let foodSpeed                  //食物阵出现速度
+let foodSpeed                  //食物移动速度
 let maxScore = Number(localStorage.getItem('maxScore'))
 let totalScore                 //总分数
 let snakeScore                 //储存分数
@@ -56,15 +56,13 @@ const currentScoreText = document.querySelector('.currentScore')
 const key = document.querySelector('.key')
 
 let windowHeight, bodySize, gameWidth, headHeight, headWidth, dirControlWidth
-let keyboardHeight, buttonWidth, buttonTop1, buttonTop2, buttonLeft, i
+let keyboardHeight, buttonWidth, buttonTop1, buttonTop2, buttonLeft, i, goTop
 let keyboardTop, keyboardLeft, score1, score2, font, letter, Left, Top
 let tipWidth, tipHeight, tipTop, tipLeft, windowWidth, pausePanelHeight
-let pausePanelWidth, pausePanelTop, pausePanelLeft, word11, word12
-let font1, musicWidth, musicHeight, musicTop, musicLeft, continueHeight
-let continueWidth, continueTop, continueLeft, goHeight, goWidth, goTop
-let gobgWidth, gobgHeight, iconWidth, againWidth, againTop, againLeft
-let maxScore1, maxScore2, currentScore1, currentScore2, wordWidth, wordHeight
-let scAniWidth, scAniHeight, scAniFont1
+let pausePanelWidth, pausePanelTop, pausePanelLeft, againTop, againLeft
+let musicWidth, musicHeight, musicTop, musicLeft, continueHeight, againWidth
+let continueWidth, continueTop, continueLeft, goHeight, goWidth, scAniWidth
+let maxScore1, maxScore2, currentScore1, currentScore2, scAniHeight, scAniFont1
 
 let keyFrames, timing, animation, scAniOutline, keyFrames2, timing2, keyFrames3
 
@@ -118,11 +116,6 @@ function resize() {
   goHeight = 200 / 659 * windowHeight
   goWidth = 225 / 659 * windowHeight
   goTop = 20 / 659 * windowHeight
-
-  gobgHeight = 180 / 659 * windowHeight
-  gobgWidth = 215 / 659 * windowHeight
-
-  iconWidth = 78 / 659 * windowHeight
 
   againWidth = 105 / 659 * windowHeight
   againTop = 145 / 659 * windowHeight
@@ -213,8 +206,6 @@ function resize() {
   pausePanel.style.height = pausePanelHeight + 'px'
   pausePanel.style.width = pausePanelWidth + 'px'
   pausePanel.style.backgroundSize = pausePanelWidth + 'px ' + pausePanelHeight + 'px'
-  // pausePanel.style.top = pausePanelTop + 'px'
-  // pausePanel.style.left = pausePanelLeft + 'px'
 
   keyFrames2 = [
     { height: 0 + 'px', width: 0 + 'px', backgroundSize: '0px 0px' },
@@ -290,7 +281,7 @@ function init() { //初始化
   rushSpeed = 190
   moveSpeed = defaultSpeed
   tailSpeed = 50
-  foodSpeed = 150
+  foodSpeed = 400
   totalScore = 0
   snakeScore = 0
   bound1 = 100
@@ -311,6 +302,7 @@ function init() { //初始化
   foodWeight = [3, 2, 1]
   food = []
   movingFood = []
+  movingFood2 = []
   hole = {}
   maxScoreText.style.visibility = 'hidden'
   currentScoreText.style.visibility = 'hidden'
@@ -331,6 +323,11 @@ function animateFun(score) {  //分数动画
   setTimeout(function () { scoreAnimate.removeChild(scAniText) }, 1300)
 }
 
+function startLoop() {  //开启所有循环
+  foodLoop()
+  gameLoop()
+}
+
 function gameLoop() { //主循环
   if (!pause) {
     if (!gameOver) whetherBumpSnake()
@@ -338,7 +335,6 @@ function gameLoop() { //主循环
     if (!gameOver && !settle) moveSnake()
     if (!gameOver && !settle) {
       if ((firstHole || snake.length > 15) && !holeExist) holeApply()
-      moveFood()
       whetherEatFood()
       if (!eatFood) deleteTail()
       else if (tail === 0) {
@@ -352,25 +348,19 @@ function gameLoop() { //主循环
   }
 }
 
+function foodLoop() {  //食物循环
+  moveFood()
+  drawGame()
+  if (gameOn && !pause && !gameOver && !settle) setTimeout(foodLoop, foodSpeed)
+}
+
 function whetherEatFood() { //判断是否吃到食物
   food.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y) {
       eatFood = true
       animateFun(obj.id * 5)
-      switch (obj.id) {
-        case 1:
-          snakeScore += 5
-          tail += 5 / 5
-          break
-        case 2:
-          snakeScore += 10
-          tail += 10 / 5
-          break
-        case 3:
-          snakeScore += 15
-          tail += 15 / 5
-          break
-      }
+      snakeScore += obj.id * 5
+      tail += obj.id
       food.splice(idx, 1)
     }
   })
@@ -378,24 +368,21 @@ function whetherEatFood() { //判断是否吃到食物
     if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
       eatFood = true
       animateFun(obj.id * 5)
-      switch (obj.id) {
-        case 1:
-          snakeScore += 5
-          tail += 5 / 5
-          break
-        case 2:
-          snakeScore += 10
-          tail += 10 / 5
-          break
-        case 3:
-          snakeScore += 15
-          tail += 15 / 5
-          break
-      }
+      snakeScore += obj.id * 5
+      tail += obj.id
       movingFood.splice(idx, 1)
     }
   })
-  if (food.length === 0 && movingFood.length === 0) foodApplyAll()
+  movingFood2.forEach((obj, idx) => {
+    if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
+      eatFood = true
+      animateFun(obj.id * 5)
+      snakeScore += obj.id * 5
+      tail += obj.id
+      movingFood2.splice(idx, 1)
+    }
+  })
+  if (food.length + movingFood.length + movingFood2.length < 3) foodApplyAll()
 }
 
 function whetherBumpSnake() { //判断是否撞到蛇身
@@ -561,17 +548,17 @@ function drawGame() { //打印贴图
       }
     }
     else if (snake.length > 1) {
-      if (snake[1].dirX === 0 && snake[1].dirY === 1) {
+      if (snake[1].x === snake[0].x && snake[1].y === snake[0].y - 1) {
         head.src = './assets/headV.png'
       }
-      else if (snake[1].dirX === 0 && snake[1].dirY === -1) {
+      else if (snake[1].x === snake[0].x && snake[1].y === snake[0].y + 1) {
         head.src = './assets/headV.png'
         head.classList.add('flipV')
       }
-      else if (snake[1].dirX === -1 && snake[1].dirY === 0) {
+      else if (snake[1].x === snake[0].x + 1 && snake[1].y === snake[0].y) {
         head.src = './assets/headH.png'
       }
-      else if (snake[1].dirX === 1 && snake[1].dirY === 0) {
+      else if (snake[1].x === snake[0].x - 1 && snake[1].y === snake[0].y) {
         head.src = './assets/headH.png'
         head.classList.add('flipH')
       }
@@ -672,6 +659,16 @@ function drawGame() { //打印贴图
       gameContainer.appendChild(img)
     })
     movingFood.forEach(obj => {
+      const img = document.createElement("img")
+      img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
+      img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
+      img.classList.add('object')
+      img.style.width = cellSize / 659 * windowHeight + 'px'
+      img.style.height = cellSize / 659 * windowHeight + 'px'
+      img.src = './assets/food' + obj.id + '.png'
+      gameContainer.appendChild(img)
+    })
+    movingFood2.forEach(obj => {
       const img = document.createElement("img")
       img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
       img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
@@ -787,8 +784,13 @@ function foodApplyAll() {
     foodApply2()
   }
   else if (i === 3) {
-    foodApply()
-    // movingFood2.push({ x: 2, y: 2, nextX: 3, nextY: 2, id: 3 })
+    let X, Y
+    while (true) {
+      X = myRandom(0, areaSize / cellSize)
+      Y = myRandom(0, areaSize / cellSize)
+      if (judge(X, Y)) break
+    }
+    movingFood2.push({ x: 2, y: 2, nextX: 3, nextY: 2, id: 3 })
   }
 }
 
@@ -819,43 +821,36 @@ function foodApply() { //食物刷新1(位置随机，固定不动)
 }
 
 function foodApply2() {  //食物刷新2(固定路线移动)
+  let f = true
   let i1 = myRandom(1, 4)
+  let i2 = myRandom(2, 9)
   switch (i1) {
     case 1:
-      let X
-      while (true) {
-        X = myRandom(2, 9)
-        if (judge(X, 2)) break
-      }
-      movingFood.push({ x: X, y: 2, id: 2 })
+      if (judge(i2, 2)) movingFood.push({ x: i2, y: 2, id: 2 })
+      else f = false
       break
     case 2:
-      movingFood.push({ x: 10, y: 2, id: 2 })
+      if (judge(10, i2)) movingFood.push({ x: 10, y: i2, id: 2 })
+      else f = false
       break
     case 3:
-      movingFood.push({ x: 10, y: 10, id: 2 })
+      if (judge(i2, 10)) movingFood.push({ x: i2, y: 10, id: 2 })
+      else f = false
       break
     case 4:
-      movingFood.push({ x: 2, y: 10, id: 2 })
+      if (judge(2, i2)) movingFood.push({ x: 2, y: i2, id: 2 })
+      else f = false
       break
   }
+  if (f) foodApply3()
 }
 
 function foodApply3() {  //食物刷新3(随机走位)
   let X, Y
   while (true) {
-    let f = true
     X = myRandom(0, areaSize / cellSize)
     Y = myRandom(0, areaSize / cellSize)
-    food.forEach(obj => {
-      if (obj.x === X && obj.y === Y) f = false
-    })
-    snake.forEach(obj => {
-      if (obj.x === X && obj.y === Y) f = false
-    })
-    if (holeExist && hole.x === X && hole.y === Y) f = false
-    if (X >= snake[0].x - 1 && X <= snake[0].x + 1 && Y >= snake[0].y - 1 && Y <= snake[0].y + 1) f = false
-    if (f) break
+    if (judge(X, Y)) break
   }
   movingFood2.push({ x: X, y: Y, id: 3 })
 }
@@ -1134,7 +1129,7 @@ function continueButtonControl() {  //'继续'按钮控制
     pause = false
     pauseButton.style.backgroundImage = 'url(./assets/pause_default.png)'
     pausePanel.style.visibility = 'hidden'
-    gameLoop()
+    startLoop()
   }
 }
 
@@ -1173,7 +1168,7 @@ function pauseButtonControl() {  //暂停键控制
       pause = false
       pauseButton.style.backgroundImage = 'url(./assets/pause_default.png)'
       pausePanel.style.visibility = 'hidden'
-      if (gameOn) gameLoop()
+      if (gameOn) startLoop()
     }
     else {
       pause = true
@@ -1218,15 +1213,6 @@ speedButton.addEventListener('touchend', function (e) {  //抬起：加速取消
 
 key.addEventListener('touchend', function (e) {  //抬起：方向键取消
   e.preventDefault();
-  // const touch = [...e.changedTouches]
-  // touch.forEach((obj) => {
-  //   const x = obj.clientX - (buttonLeft + (windowWidth - gameWidth) / 2)
-  //   const y = obj.clientY - (buttonTop1 + gameWidth + Top - 2)
-  //   if (!(x > 0 && y > 0 && x < buttonWidth && y < buttonWidth * 2 + buttonTop2)) {
-  //     // console.log(parseInt(x) + ', ' + parseInt(y));
-  //     dirControlButton.style.backgroundImage = 'url(./assets/keyboard_default.png)'
-  //   }
-  // })
   dirControlButton.style.backgroundImage = 'url(./assets/keyboard_default.png)'
 })
 
@@ -1298,7 +1284,7 @@ function gameOnControl() {  //初始状态：按方向键开始游戏 //settle�
   if ((!gameOn || settle && !settling)) {
     gameOn = true
     settle = false
-    gameLoop()
+    startLoop()
   }
 }
 
