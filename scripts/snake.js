@@ -784,13 +784,7 @@ function foodApplyAll() {
     foodApply2()
   }
   else if (i === 3) {
-    let X, Y
-    while (true) {
-      X = myRandom(0, areaSize / cellSize)
-      Y = myRandom(0, areaSize / cellSize)
-      if (judge(X, Y)) break
-    }
-    movingFood2.push({ x: 2, y: 2, nextX: 3, nextY: 2, id: 3 })
+    foodApply3()
   }
 }
 
