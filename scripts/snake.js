@@ -1055,7 +1055,7 @@ function GameOver() { //游戏结束
   }, s + 250)
 }
 
-window.addEventListener('keydown', function (e) {
+window.addEventListener('keydown', function (e) {  //键盘按下
   e.preventDefault();
   //空格键暂停
   if (e.key === ' ') {
@@ -1085,10 +1085,8 @@ window.addEventListener('keydown', function (e) {
 
   //初始状态：按方向键开始游戏
   //settle结束，方向键继续游戏
-  if ((!gameOn || settle && !settling) && (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
-    gameOn = true
-    settle = false
-    gameLoop()
+  if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+    gameOnControl()
   }
 
   //死亡状态：按空格键回到初始状态
@@ -1099,7 +1097,7 @@ window.addEventListener('keydown', function (e) {
   }
 })
 
-window.addEventListener('keyup', function (e) {
+window.addEventListener('keyup', function (e) {  //键盘松开
   e.preventDefault();
   if (e.key === 's') speedEnd()
 
@@ -1213,15 +1211,23 @@ speedButton.addEventListener('touchstart', function (e) {  //加速键按住
   speedStart()
 })
 
-document.addEventListener('touchend', function (e) {  //抬起：加速取消、方向键取消
+speedButton.addEventListener('touchend', function (e) {  //抬起：加速取消
   e.preventDefault();
   speedEnd()
-  const touch = e.changedTouches[0]
-  const x = touch.clientX - (buttonLeft + (windowWidth - gameWidth) / 2)
-  const y = touch.clientY - (buttonTop1 + gameWidth + Top - 2)
-  if (!(x > 0 && y > 0 && x < buttonWidth && y < buttonWidth * 2 + buttonTop2)) {
-    dirControlButton.style.backgroundImage = 'url(./assets/keyboard_default.png)'
-  }
+})
+
+key.addEventListener('touchend', function (e) {  //抬起：方向键取消
+  e.preventDefault();
+  // const touch = [...e.changedTouches]
+  // touch.forEach((obj) => {
+  //   const x = obj.clientX - (buttonLeft + (windowWidth - gameWidth) / 2)
+  //   const y = obj.clientY - (buttonTop1 + gameWidth + Top - 2)
+  //   if (!(x > 0 && y > 0 && x < buttonWidth && y < buttonWidth * 2 + buttonTop2)) {
+  //     // console.log(parseInt(x) + ', ' + parseInt(y));
+  //     dirControlButton.style.backgroundImage = 'url(./assets/keyboard_default.png)'
+  //   }
+  // })
+  dirControlButton.style.backgroundImage = 'url(./assets/keyboard_default.png)'
 })
 
 function dirToUp() {
@@ -1288,44 +1294,37 @@ function dirToRight() {
   dirControlButton.style.backgroundImage = 'url(./assets/right_hold.png)'
 }
 
-document.addEventListener('touchmove', function (e) {  //方向键按住拖动
+function gameOnControl() {  //初始状态：按方向键开始游戏 //settle结束，方向键继续游戏
+  if ((!gameOn || settle && !settling)) {
+    gameOn = true
+    settle = false
+    gameLoop()
+  }
+}
+
+document.addEventListener('touchmove', function (e) {  //方向键按住拖动  
   e.preventDefault();
   const touch = [...e.touches]
   touch.forEach((obj) => {
     const x = obj.clientX - (keyboardLeft + (windowWidth - gameWidth) / 2)
     const y = obj.clientY - (keyboardTop + gameWidth + Top - 2)
-    if (x > -60 && y > -60 && x < dirControlWidth + 60 && y < dirControlWidth + 60) {
+    // console.log(parseInt(x) + ', ' + parseInt(y));
+    if (x > -40 && y > -60 && x < dirControlWidth + 60 && y < dirControlWidth + 60) {
       if (x < y && x + y < dirControlWidth) {
         dirToLeft()
-        if ((!gameOn || settle && !settling)) {
-          gameOn = true
-          settle = false
-          gameLoop()
-        }
+        gameOnControl()
       }
       else if (x > y && x + y < dirControlWidth) {
         dirToUp()
-        if ((!gameOn || settle && !settling)) {
-          gameOn = true
-          settle = false
-          gameLoop()
-        }
+        gameOnControl()
       }
       else if (x > y && x + y > dirControlWidth) {
         dirToRight()
-        if ((!gameOn || settle && !settling)) {
-          gameOn = true
-          settle = false
-          gameLoop()
-        }
+        gameOnControl()
       }
       else if (x < y && x + y > dirControlWidth) {
         dirToDown()
-        if ((!gameOn || settle && !settling)) {
-          gameOn = true
-          settle = false
-          gameLoop()
-        }
+        gameOnControl()
       }
     }
   })
@@ -1337,38 +1336,23 @@ document.addEventListener('touchstart', function (e) {  //方向键点击
   touch.forEach((obj) => {
     const x = obj.clientX - (keyboardLeft + (windowWidth - gameWidth) / 2)
     const y = obj.clientY - (keyboardTop + gameWidth + Top - 2)
-    if (x > -60 && y > -60 && x < dirControlWidth + 60 && y < dirControlWidth + 60) {
+    // console.log(parseInt(x) + ', ' + parseInt(y));
+    if (x > -40 && y > -60 && x < dirControlWidth + 60 && y < dirControlWidth + 60) {
       if (x < y && x + y < dirControlWidth) {
         dirToLeft()
-        if ((!gameOn || settle && !settling)) {
-          gameOn = true
-          settle = false
-          gameLoop()
-        }
+        gameOnControl()
       }
       else if (x > y && x + y < dirControlWidth) {
         dirToUp()
-        if ((!gameOn || settle && !settling)) {
-          gameOn = true
-          settle = false
-          gameLoop()
-        }
+        gameOnControl()
       }
       else if (x > y && x + y > dirControlWidth) {
         dirToRight()
-        if ((!gameOn || settle && !settling)) {
-          gameOn = true
-          settle = false
-          gameLoop()
-        }
+        gameOnControl()
       }
       else if (x < y && x + y > dirControlWidth) {
         dirToDown()
-        if ((!gameOn || settle && !settling)) {
-          gameOn = true
-          settle = false
-          gameLoop()
-        }
+        gameOnControl()
       }
     }
   })
