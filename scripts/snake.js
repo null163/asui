@@ -274,6 +274,10 @@ window.addEventListener('resize', function () {
   drawGame()
 })
 
+window.addEventListener("orientationchange", function () {
+  resize()
+})
+
 resize()
 init()
 
@@ -300,7 +304,7 @@ function init() { //初始化
   settle = false
   settling = false
   snake = [{ x: 6, y: 6, dirX: 0, dirY: 1 }]
-  foodWeight = [7, 4, 1]
+  foodWeight = [5, 3, 1]
   food = []
   movingFood = []
   movingFood2 = []
@@ -333,7 +337,7 @@ function startLoop() {  //开启所有循环
 function gameLoop() { //主循环
   if (!pause) {
     if (!gameOver) whetherBumpSnake()
-    if (!gameOver && snake.length > 2) whetherEnterHole()
+    if (!gameOver) whetherEnterHole()
     if (!gameOver && !settle) moveSnake()
     if (!gameOver && !settle) {
       if ((firstHole || snake.length > 15) && !holeExist) holeApply()
@@ -420,21 +424,14 @@ function whetherBumpSnake() { //判断是否撞到蛇身
 }
 
 function whetherEnterHole() { //判断是否进入洞口
-  if (snake[0].x === hole.x && snake[0].y - 1 === hole.y && snake[0].dirY === -1 && !(snake[1].x === hole.x && snake[1].y === hole.y)) {
-    settleScore()
-    return
-  }
-  else if (snake[0].x - 1 === hole.x && snake[0].y === hole.y && snake[0].dirX === -1 && !(snake[1].x === hole.x && snake[1].y === hole.y)) {
-    settleScore()
-    return
-  }
-  else if (snake[0].x + 1 === hole.x && snake[0].y === hole.y && snake[0].dirX === 1 && !(snake[1].x === hole.x && snake[1].y === hole.y)) {
-    settleScore()
-    return
-  }
-  else if (snake[0].x === hole.x && snake[0].y + 1 === hole.y && snake[0].dirY === 1 && !(snake[1].x === hole.x && snake[1].y === hole.y)) {
-    settleScore()
-    return
+  if (snake[0].x === hole.x && snake[0].y - 1 === hole.y && snake[0].dirY === -1 && !(snake[1].x === hole.x && snake[1].y === hole.y) ||
+    snake[0].x - 1 === hole.x && snake[0].y === hole.y && snake[0].dirX === -1 && !(snake[1].x === hole.x && snake[1].y === hole.y) ||
+    snake[0].x + 1 === hole.x && snake[0].y === hole.y && snake[0].dirX === 1 && !(snake[1].x === hole.x && snake[1].y === hole.y) ||
+    snake[0].x === hole.x && snake[0].y + 1 === hole.y && snake[0].dirY === 1 && !(snake[1].x === hole.x && snake[1].y === hole.y)) {
+    if (snake.length > 2) settleScore()
+    else {
+      settle = true
+    }
   }
 }
 
@@ -444,20 +441,6 @@ function settleScore() { //结算分数
   holeExist = false
   i = totalScore
   scoreRefreshLoop()
-  if (totalScore < bound1 && totalScore + snakeScore >= bound1) {
-    let i1 = myRandom(1, 4)
-    // if (i1 === 1) foodApply1(1)
-    // else if (i1 === 2) foodApply2(1)
-    // else if (i1 === 3) foodApply3(1)
-    // else if (i1 === 4) foodApply4(1)
-  }
-  else if (totalScore < bound2 && totalScore + snakeScore >= bound2) {
-    let i2 = myRandom(1, 4)
-    // if (i2 === 1) foodApply1(2)
-    // else if (i2 === 2) foodApply2(2)
-    // else if (i2 === 3) foodApply3(2)
-    // else if (i2 === 4) foodApply4(2)
-  }
   totalScore += snakeScore
   snakeScore = 0
   drawGame()
@@ -835,8 +818,8 @@ function myRandom(x, y) { //x到y的随机整数
 function foodApplyAll() {
   let i = randomFood()
   if (i === 1) foodApply()
-  else if (i === 2) foodApply2()
-  else if (i === 3) foodApply3()
+  else if (i === 2) foodApply3()
+  else if (i === 3) foodApply2()
 }
 
 function randomFood() {  //带权重随机生成一个食物id
@@ -872,29 +855,29 @@ function foodApply2() {  //食物刷新2(固定路线移动)
   switch (i1) {
     case 1:
       if (judge(i2, 2)) {
-        if (i3 === 3) movingFood2.push({ x: i2, y: 2, id: 2 })
-        else movingFood.push({ x: i2, y: 2, id: 2 })
+        if (i3 === 3) movingFood2.push({ x: i2, y: 2, id: 3 })
+        else movingFood.push({ x: i2, y: 2, id: 3 })
       }
       else f = false
       break
     case 2:
       if (judge(10, i2)) {
-        if (i3 === 3) movingFood2.push({ x: 10, y: i2, id: 2 })
-        else movingFood.push({ x: 10, y: i2, id: 2 })
+        if (i3 === 3) movingFood2.push({ x: 10, y: i2, id: 3 })
+        else movingFood.push({ x: 10, y: i2, id: 3 })
       }
       else f = false
       break
     case 3:
       if (judge(i2, 10)) {
-        if (i3 === 3) movingFood2.push({ x: i2, y: 10, id: 2 })
-        else movingFood.push({ x: i2, y: 10, id: 2 })
+        if (i3 === 3) movingFood2.push({ x: i2, y: 10, id: 3 })
+        else movingFood.push({ x: i2, y: 10, id: 3 })
       }
       else f = false
       break
     case 4:
       if (judge(2, i2)) {
-        if (i3 === 3) movingFood2.push({ x: 2, y: i2, id: 2 })
-        else movingFood.push({ x: 2, y: i2, id: 2 })
+        if (i3 === 3) movingFood2.push({ x: 2, y: i2, id: 3 })
+        else movingFood.push({ x: 2, y: i2, id: 3 })
       }
       else f = false
       break
@@ -909,7 +892,7 @@ function foodApply3() {  //食物刷新3(随机走位)
     Y = myRandom(0, areaSize / cellSize)
     if (judge(X, Y)) break
   }
-  movingFood3.push({ x: X, y: Y, id: 3 })
+  movingFood3.push({ x: X, y: Y, id: 2 })
 }
 
 function foodApplyXY(X, Y, i) {  //在x,y处生成一个食物，若该位置不为空，则不生成
