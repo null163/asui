@@ -1121,24 +1121,22 @@ window.addEventListener('keydown', function (e) {  //键盘按下
   }
   else if (pause) return
 
-  if (!gameOver) {
-    switch (e.key) {
-      case 'ArrowUp':
-        dirToUp()
-        break
-      case 'ArrowDown':
-        dirToDown()
-        break
-      case 'ArrowLeft':
-        dirToLeft()
-        break
-      case 'ArrowRight':
-        dirToRight()
-        break
-      case 's':
-        if (!speedUp) speedStart()
-        break
-    }
+  switch (e.key) {
+    case 'ArrowUp':
+      dirToUp()
+      break
+    case 'ArrowDown':
+      dirToDown()
+      break
+    case 'ArrowLeft':
+      dirToLeft()
+      break
+    case 'ArrowRight':
+      dirToRight()
+      break
+    case 's':
+      if (!speedUp) speedStart()
+      break
   }
 
   //初始状态：按方向键开始游戏
@@ -1280,65 +1278,73 @@ key.addEventListener('touchend', function (e) {  //抬起：方向键取消
 })
 
 function dirToUp() {
-  if (!gameOn || settle && !settling) {
-    snake[0].dirX = 0
-    snake[0].dirY = -1
-  }
-  else if (snake[0].dirX === 1 && snake[0].dirY === 0) {
-    snake[0].dirX = -1
-    snake[0].dirY = -1
-  }
-  else if (snake[0].dirX === -1 && snake[0].dirY === 0) {
-    snake[0].dirX = 1
-    snake[0].dirY = -1
+  if (!gameOver) {
+    if (!gameOn || settle && !settling) {
+      snake[0].dirX = 0
+      snake[0].dirY = -1
+    }
+    else if (snake[0].dirX === 1 && snake[0].dirY === 0) {
+      snake[0].dirX = -1
+      snake[0].dirY = -1
+    }
+    else if (snake[0].dirX === -1 && snake[0].dirY === 0) {
+      snake[0].dirX = 1
+      snake[0].dirY = -1
+    }
   }
   dirControlButton.style.backgroundImage = 'url(./assets/up_hold.png)'
 }
 
 function dirToDown() {
-  if (!gameOn || settle && !settling) {
-    snake[0].dirX = 0
-    snake[0].dirY = 1
-  }
-  else if (snake[0].dirX === 1 && snake[0].dirY === 0) {
-    snake[0].dirX = -1
-    snake[0].dirY = 1
-  }
-  else if (snake[0].dirX === -1 && snake[0].dirY === 0) {
-    snake[0].dirX = 1
-    snake[0].dirY = 1
+  if (!gameOver) {
+    if (!gameOn || settle && !settling) {
+      snake[0].dirX = 0
+      snake[0].dirY = 1
+    }
+    else if (snake[0].dirX === 1 && snake[0].dirY === 0) {
+      snake[0].dirX = -1
+      snake[0].dirY = 1
+    }
+    else if (snake[0].dirX === -1 && snake[0].dirY === 0) {
+      snake[0].dirX = 1
+      snake[0].dirY = 1
+    }
   }
   dirControlButton.style.backgroundImage = 'url(./assets/down_hold.png)'
 }
 
 function dirToLeft() {
-  if (!gameOn || settle && !settling) {
-    snake[0].dirX = -1
-    snake[0].dirY = 0
-  }
-  else if (snake[0].dirX === 0 && snake[0].dirY === 1) {
-    snake[0].dirX = -1
-    snake[0].dirY = -1
-  }
-  else if (snake[0].dirX === 0 && snake[0].dirY === -1) {
-    snake[0].dirX = -1
-    snake[0].dirY = 1
+  if (!gameOver) {
+    if (!gameOn || settle && !settling) {
+      snake[0].dirX = -1
+      snake[0].dirY = 0
+    }
+    else if (snake[0].dirX === 0 && snake[0].dirY === 1) {
+      snake[0].dirX = -1
+      snake[0].dirY = -1
+    }
+    else if (snake[0].dirX === 0 && snake[0].dirY === -1) {
+      snake[0].dirX = -1
+      snake[0].dirY = 1
+    }
   }
   dirControlButton.style.backgroundImage = 'url(./assets/left_hold.png)'
 }
 
 function dirToRight() {
-  if (!gameOn || settle && !settling) {
-    snake[0].dirX = 1
-    snake[0].dirY = 0
-  }
-  else if (snake[0].dirX === 0 && snake[0].dirY === 1) {
-    snake[0].dirX = 1
-    snake[0].dirY = -1
-  }
-  else if (snake[0].dirX === 0 && snake[0].dirY === -1) {
-    snake[0].dirX = 1
-    snake[0].dirY = 1
+  if (!gameOver) {
+    if (!gameOn || settle && !settling) {
+      snake[0].dirX = 1
+      snake[0].dirY = 0
+    }
+    else if (snake[0].dirX === 0 && snake[0].dirY === 1) {
+      snake[0].dirX = 1
+      snake[0].dirY = -1
+    }
+    else if (snake[0].dirX === 0 && snake[0].dirY === -1) {
+      snake[0].dirX = 1
+      snake[0].dirY = 1
+    }
   }
   dirControlButton.style.backgroundImage = 'url(./assets/right_hold.png)'
 }
