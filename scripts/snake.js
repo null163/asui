@@ -4,7 +4,8 @@ let moveSpeed                  //移动速度
 let defaultSpeed               //默认速度
 let rushSpeed                  //冲刺速度
 let tailSpeed                  //尾巴变短速度
-let foodSpeed                  //食物移动速度
+let foodSpeed2                  //食物移动速度(随机路线)
+let foodSpeed31                  //食物移动速度(固定路线)
 let maxScore = Number(localStorage.getItem('maxScore'))
 let totalScore                 //总分数
 let snakeScore                 //储存分数
@@ -24,9 +25,9 @@ let settling                   //结算中
 
 let snake             //蛇的位置
 let food              //食物的位置
-let movingFood = []   //食物的位置(固定路线 固定速度)
-let movingFood2 = []   //食物的位置(固定路线 速度变化)
-let movingFood3 = []   //食物的位置(随机路线)
+let movingFood31 = []   //食物的位置(固定路线 固定速度)
+let movingFood32 = []   //食物的位置(固定路线 速度变化)
+let movingFood2 = []   //食物的位置(随机路线)
 let foodWeight = []   //食物权重
 let hole              //洞的位置
 
@@ -286,7 +287,8 @@ function init() { //初始化
   rushSpeed = 190
   moveSpeed = defaultSpeed
   tailSpeed = 50
-  foodSpeed = 400
+  foodSpeed2 = 600
+  foodSpeed31 = 400
   totalScore = 0
   snakeScore = 0
   bound1 = 100
@@ -306,9 +308,9 @@ function init() { //初始化
   snake = [{ x: 6, y: 6, dirX: 0, dirY: 1 }]
   foodWeight = [5, 3, 1]
   food = []
-  movingFood = []
+  movingFood31 = []
+  movingFood32 = []
   movingFood2 = []
-  movingFood3 = []
   hole = {}
   maxScoreText.style.visibility = 'hidden'
   currentScoreText.style.visibility = 'hidden'
@@ -330,7 +332,8 @@ function animateFun(score) {  //分数动画
 }
 
 function startLoop() {  //开启所有循环
-  foodLoop()
+  foodLoop31()
+  foodLoop2()
   gameLoop()
 }
 
@@ -341,7 +344,7 @@ function gameLoop() { //主循环
     if (!gameOver && !settle) moveSnake()
     if (!gameOver && !settle) {
       if ((firstHole || snake.length > 15) && !holeExist) holeApply()
-      moveFood2()
+      moveFood32()
       whetherEatFood()
       if (!eatFood) deleteTail()
       else if (tail === 0) {
@@ -355,11 +358,16 @@ function gameLoop() { //主循环
   }
 }
 
-function foodLoop() {  //食物循环
-  moveFood()
-  moveFood3()
+function foodLoop31() {  //食物循环(固定路线，速度不变)
+  moveFood31()
   drawGame()
-  if (gameOn && !pause && !gameOver && !settle) setTimeout(foodLoop, foodSpeed)
+  if (gameOn && !pause && !gameOver && !settle) setTimeout(foodLoop31, foodSpeed31)
+}
+
+function foodLoop2() {  //食物循环(随机路线)
+  moveFood2()
+  drawGame()
+  if (gameOn && !pause && !gameOver && !settle) setTimeout(foodLoop2, foodSpeed2)
 }
 
 function whetherEatFood() { //判断是否吃到食物
@@ -372,13 +380,22 @@ function whetherEatFood() { //判断是否吃到食物
       food.splice(idx, 1)
     }
   })
-  movingFood.forEach((obj, idx) => {
+  movingFood31.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
       eatFood = true
       animateFun(obj.id * 5)
       snakeScore += obj.id * 5
       tail += obj.id
-      movingFood.splice(idx, 1)
+      movingFood31.splice(idx, 1)
+    }
+  })
+  movingFood32.forEach((obj, idx) => {
+    if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
+      eatFood = true
+      animateFun(obj.id * 5)
+      snakeScore += obj.id * 5
+      tail += obj.id
+      movingFood32.splice(idx, 1)
     }
   })
   movingFood2.forEach((obj, idx) => {
@@ -390,16 +407,7 @@ function whetherEatFood() { //判断是否吃到食物
       movingFood2.splice(idx, 1)
     }
   })
-  movingFood3.forEach((obj, idx) => {
-    if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
-      eatFood = true
-      animateFun(obj.id * 5)
-      snakeScore += obj.id * 5
-      tail += obj.id
-      movingFood3.splice(idx, 1)
-    }
-  })
-  if (food.length + movingFood.length + movingFood2.length + movingFood3.length < 3) foodApplyAll()
+  if (food.length + movingFood31.length + movingFood32.length + movingFood2.length < 3) foodApplyAll()
 }
 
 function whetherBumpSnake() { //判断是否撞到蛇身
@@ -654,7 +662,17 @@ function drawGame() { //打印贴图
       img.src = './assets/food' + obj.id + '.png'
       gameContainer.appendChild(img)
     })
-    movingFood.forEach(obj => {
+    movingFood31.forEach(obj => {
+      const img = document.createElement("img")
+      img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
+      img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
+      img.classList.add('object')
+      img.style.width = cellSize / 659 * windowHeight + 'px'
+      img.style.height = cellSize / 659 * windowHeight + 'px'
+      img.src = './assets/food' + obj.id + '.png'
+      gameContainer.appendChild(img)
+    })
+    movingFood32.forEach(obj => {
       const img = document.createElement("img")
       img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
       img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
@@ -665,16 +683,6 @@ function drawGame() { //打印贴图
       gameContainer.appendChild(img)
     })
     movingFood2.forEach(obj => {
-      const img = document.createElement("img")
-      img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
-      img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
-      img.classList.add('object')
-      img.style.width = cellSize / 659 * windowHeight + 'px'
-      img.style.height = cellSize / 659 * windowHeight + 'px'
-      img.src = './assets/food' + obj.id + '.png'
-      gameContainer.appendChild(img)
-    })
-    movingFood3.forEach(obj => {
       const img = document.createElement("img")
       img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
       img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
@@ -754,8 +762,8 @@ function moveSnake() { //蛇移动
   }
 }
 
-function moveFood() {  //食物移动(固定路线，速度不变)
-  movingFood.forEach(obj => {
+function moveFood31() {  //食物移动(固定路线，速度不变)
+  movingFood31.forEach(obj => {
     if (obj.y === 2 && obj.x < 10 && judge(obj.x + 1, obj.y)) {
       obj.x++
     }
@@ -771,25 +779,25 @@ function moveFood() {  //食物移动(固定路线，速度不变)
   })
 }
 
-function moveFood2() {  //食物移动(固定路线，速度变化)
+function moveFood32() {  //食物移动(固定路线，速度变化)
+  movingFood32.forEach(obj => {
+    if (obj.y === 2 && obj.x < 10 && judge(obj.x + 1, obj.y)) {
+      obj.x++
+    }
+    else if (obj.x === 10 && obj.y < 10 && judge(obj.x, obj.y + 1)) {
+      obj.y++
+    }
+    else if (obj.x > 2 && obj.y === 10 && judge(obj.x - 1, obj.y)) {
+      obj.x--
+    }
+    else if (obj.x === 2 && obj.y > 2 && judge(obj.x, obj.y - 1)) {
+      obj.y--
+    }
+  })
+}
+
+function moveFood2() {  //食物移动(随机路线)
   movingFood2.forEach(obj => {
-    if (obj.y === 2 && obj.x < 10 && judge(obj.x + 1, obj.y)) {
-      obj.x++
-    }
-    else if (obj.x === 10 && obj.y < 10 && judge(obj.x, obj.y + 1)) {
-      obj.y++
-    }
-    else if (obj.x > 2 && obj.y === 10 && judge(obj.x - 1, obj.y)) {
-      obj.x--
-    }
-    else if (obj.x === 2 && obj.y > 2 && judge(obj.x, obj.y - 1)) {
-      obj.y--
-    }
-  })
-}
-
-function moveFood3() {  //食物移动(随机路线)
-  movingFood3.forEach(obj => {
     let i1 = myRandom(1, 4)
     if (i1 === 1 && judge(obj.x, obj.y + 1)) {
       obj.y++
@@ -818,8 +826,14 @@ function myRandom(x, y) { //x到y的随机整数
 function foodApplyAll() {
   let i = randomFood()
   if (i === 1) foodApply()
-  else if (i === 2) foodApply3()
-  else if (i === 3) foodApply2()
+  else if (i === 2) {
+    if (movingFood2.length + movingFood31.length + movingFood32.length < 1) foodApply2()
+    else foodApply()
+  }
+  else if (i === 3) {
+    if (movingFood2.length + movingFood31.length + movingFood32.length < 1) foodApply3()
+    else foodApply()
+  }
 }
 
 function randomFood() {  //带权重随机生成一个食物id
@@ -847,7 +861,17 @@ function foodApply() { //食物刷新1(位置随机，固定不动)
   food.push({ x: X, y: Y, id: 1 })
 }
 
-function foodApply2() {  //食物刷新2(固定路线移动)
+function foodApply2() {  //食物刷新2(随机走位)
+  let X, Y
+  while (true) {
+    X = myRandom(0, areaSize / cellSize)
+    Y = myRandom(0, areaSize / cellSize)
+    if (judge(X, Y)) break
+  }
+  movingFood2.push({ x: X, y: Y, id: 2 })
+}
+
+function foodApply3() {  //食物刷新3(固定路线移动)
   let f = true
   let i1 = myRandom(1, 4)
   let i2 = myRandom(2, 9)
@@ -855,44 +879,34 @@ function foodApply2() {  //食物刷新2(固定路线移动)
   switch (i1) {
     case 1:
       if (judge(i2, 2)) {
-        if (i3 === 3) movingFood2.push({ x: i2, y: 2, id: 3 })
-        else movingFood.push({ x: i2, y: 2, id: 3 })
+        if (i3 === 3) movingFood32.push({ x: i2, y: 2, id: 3 })
+        else movingFood31.push({ x: i2, y: 2, id: 3 })
       }
       else f = false
       break
     case 2:
       if (judge(10, i2)) {
-        if (i3 === 3) movingFood2.push({ x: 10, y: i2, id: 3 })
-        else movingFood.push({ x: 10, y: i2, id: 3 })
+        if (i3 === 3) movingFood32.push({ x: 10, y: i2, id: 3 })
+        else movingFood31.push({ x: 10, y: i2, id: 3 })
       }
       else f = false
       break
     case 3:
       if (judge(i2, 10)) {
-        if (i3 === 3) movingFood2.push({ x: i2, y: 10, id: 3 })
-        else movingFood.push({ x: i2, y: 10, id: 3 })
+        if (i3 === 3) movingFood32.push({ x: i2, y: 10, id: 3 })
+        else movingFood31.push({ x: i2, y: 10, id: 3 })
       }
       else f = false
       break
     case 4:
       if (judge(2, i2)) {
-        if (i3 === 3) movingFood2.push({ x: 2, y: i2, id: 3 })
-        else movingFood.push({ x: 2, y: i2, id: 3 })
+        if (i3 === 3) movingFood32.push({ x: 2, y: i2, id: 3 })
+        else movingFood31.push({ x: 2, y: i2, id: 3 })
       }
       else f = false
       break
   }
   if (f) foodApply()
-}
-
-function foodApply3() {  //食物刷新3(随机走位)
-  let X, Y
-  while (true) {
-    X = myRandom(0, areaSize / cellSize)
-    Y = myRandom(0, areaSize / cellSize)
-    if (judge(X, Y)) break
-  }
-  movingFood3.push({ x: X, y: Y, id: 2 })
 }
 
 function foodApplyXY(X, Y, i) {  //在x,y处生成一个食物，若该位置不为空，则不生成
@@ -908,13 +922,13 @@ function judge(X, Y) {  //判断该位置是否为空
   snake.forEach(obj => {
     if (obj.x === X && obj.y === Y) f = false
   })
-  movingFood.forEach(obj => {
+  movingFood31.forEach(obj => {
+    if (obj.x === X && obj.y === Y) f = false
+  })
+  movingFood32.forEach(obj => {
     if (obj.x === X && obj.y === Y) f = false
   })
   movingFood2.forEach(obj => {
-    if (obj.x === X && obj.y === Y) f = false
-  })
-  movingFood3.forEach(obj => {
     if (obj.x === X && obj.y === Y) f = false
   })
   if (holeExist && hole.x === X && hole.y === Y) f = false
