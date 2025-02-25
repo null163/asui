@@ -275,9 +275,9 @@ window.addEventListener('resize', function () {
   drawGame()
 })
 
-window.addEventListener("orientationchange", function () {
-  resize()
-})
+// window.addEventListener("orientationchange", function () {
+//   resize()
+// })
 
 resize()
 init()
