@@ -276,7 +276,13 @@ window.addEventListener('resize', function () {
 })
 
 window.addEventListener("orientationchange", function () {
-  resize()
+  let orientation = screen.orientation;
+  if (orientation) {
+    if (orientation.type === 'portrait-primary' || orientation.type === 'portrait-secondary') resize()
+  }
+  else {
+    console.log('Screen orientation API not supported');
+  }
 })
 
 resize()
