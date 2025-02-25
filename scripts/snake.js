@@ -275,13 +275,14 @@ window.addEventListener('resize', function () {
   drawGame()
 })
 
-// window.addEventListener("orientationchange", function () {
+window.addEventListener("orientationchange", function () {
+  resize()
+  drawGame()
+})
+
+// window.addEventListener("load", function () {  //监听页面加载
 //   resize()
 // })
-
-window.addEventListener("load", function () {  //监听页面加载
-  resize()
-});
 
 resize()
 init()
