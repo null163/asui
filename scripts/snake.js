@@ -98,7 +98,7 @@ function resize() {
   tipWidth = 185 / 659 * windowHeight
   tipHeight = 250 / 659 * windowHeight
   tipTop = 350 / 659 * windowHeight
-  tipLeft = (windowWidth + gameWidth) / 2 + 50 / 659 * windowHeight
+  tipLeft = (windowWidth + gameWidth) / 2 + 105 / 659 * windowHeight
 
   pausePanelHeight = 150 / 659 * windowHeight
   pausePanelWidth = 225 / 659 * windowHeight
@@ -278,6 +278,10 @@ window.addEventListener('resize', function () {
 // window.addEventListener("orientationchange", function () {
 //   resize()
 // })
+
+window.addEventListener("load", function () {  //监听页面加载
+  resize()
+});
 
 resize()
 init()
