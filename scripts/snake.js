@@ -4,8 +4,9 @@ let moveSpeed                  //移动速度
 let defaultSpeed               //默认速度
 let rushSpeed                  //冲刺速度
 let tailSpeed                  //尾巴变短速度
-let foodSpeed2                  //食物移动速度(随机路线)
-let foodSpeed31                  //食物移动速度(固定路线)
+let foodSpeed2                 //食物移动速度(随机路线)
+let foodSpeed31                //食物移动速度(固定路线，速度不变)
+let foodSpeed32                //食物移动速度(固定路线，速度变化)
 let maxScore = Number(localStorage.getItem('maxScore'))
 let totalScore                 //总分数
 let snakeScore                 //储存分数
@@ -285,6 +286,7 @@ function init() { //初始化
   tailSpeed = 50
   foodSpeed2 = 600
   foodSpeed31 = 400
+  foodSpeed32 = defaultSpeed
   totalScore = 0
   snakeScore = 0
   bound1 = 100
@@ -329,6 +331,7 @@ function animateFun(score) {  //分数动画
 
 function startLoop() {  //开启所有循环
   foodLoop31()
+  foodLoop32()
   foodLoop2()
   gameLoop()
 }
@@ -340,7 +343,6 @@ function gameLoop() { //主循环
     if (!gameOver && !settle) moveSnake()
     if (!gameOver && !settle) {
       if ((firstHole || snake.length > 15) && !holeExist) holeApply()
-      moveFood32()
       whetherEatFood()
       if (!eatFood) deleteTail()
       else if (tail === 0) {
@@ -357,7 +359,13 @@ function gameLoop() { //主循环
 function foodLoop31() {  //食物循环(固定路线，速度不变)
   moveFood31()
   drawGame()
-  if (gameOn && !pause && !gameOver && !settle) setTimeout(foodLoop31, foodSpeed31)
+  if (gameOn && !pause && !gameOver) setTimeout(foodLoop31, foodSpeed31)
+}
+
+function foodLoop32() {  //食物循环(固定路线，速度变化)
+  moveFood32()
+  drawGame()
+  if (gameOn && !pause && !gameOver) setTimeout(foodLoop32, foodSpeed32)
 }
 
 function foodLoop2() {  //食物循环(随机路线)
@@ -435,6 +443,7 @@ function whetherEnterHole() { //判断是否进入洞口
     if (snake.length > 2) settleScore()
     else {
       settle = true
+      foodSpeed32 = defaultSpeed
     }
   }
 }
@@ -1244,6 +1253,7 @@ function speedStart() {  //加速开始
     speedUp = true
     speedButton.style.backgroundImage = 'url(./assets/speed_hold.png)'
     moveSpeed = rushSpeed
+    foodSpeed32 = rushSpeed
   }
 }
 
@@ -1252,6 +1262,7 @@ function speedEnd() {  //加速结束
     speedUp = false
     speedButton.style.backgroundImage = 'url(./assets/speed_default.png)'
     moveSpeed = defaultSpeed
+    foodSpeed32 = defaultSpeed
   }
 }
 
@@ -1343,10 +1354,14 @@ function dirToRight() {
 }
 
 function gameOnControl() {  //初始状态：按方向键开始游戏 //settle结束，方向键继续游戏
-  if ((!gameOn || settle && !settling)) {
+  if (!gameOn) {
     gameOn = true
-    settle = false
     startLoop()
+  }
+  else if (settle && !settling) {
+    settle = false
+    foodLoop2()
+    gameLoop()
   }
 }
 
