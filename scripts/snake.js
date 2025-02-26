@@ -18,19 +18,20 @@ let eatFood                    //是否吃到食物
 let holeExist                  //洞口是否已出现
 let firstHole                  //是否为第一个洞口
 let musicIsOn                  //音乐是否开启
+let firstLoad = true           //是否为第一次加载游戏
 let gameOn                     //初始状态
 let gameOver                   //死亡状态
 let pause                      //暂停状态
 let settle                     //结算状态
 let settling                   //结算中
 
-let snake             //蛇的位置
-let food              //食物的位置
+let snake               //蛇的位置
+let food                //食物的位置
 let movingFood31 = []   //食物的位置(固定路线 固定速度)
 let movingFood32 = []   //食物的位置(固定路线 速度变化)
-let movingFood2 = []   //食物的位置(随机路线)
-let foodWeight = []   //食物权重
-let hole              //洞的位置
+let movingFood2 = []    //食物的位置(随机路线)
+let foodWeight = []     //食物权重
+let hole                //洞的位置
 
 const body = document.querySelector('body')
 const whole = document.querySelector('.whole')
@@ -57,6 +58,8 @@ const again = document.querySelector('.again')
 const maxScoreText = document.querySelector('.maxScore')
 const currentScoreText = document.querySelector('.currentScore')
 const key = document.querySelector('.key')
+
+const BGM = document.getElementById('BGM')
 
 let windowHeight, bodySize, gameWidth, headHeight, headWidth, dirControlWidth
 let keyboardHeight, buttonWidth, buttonTop1, buttonTop2, buttonLeft, i, goTop
@@ -1168,10 +1171,12 @@ function musicControl() {  //音量键控制
   if (pausePanel.style.visibility === 'visible') {
     if (musicIsOn) {
       musicIsOn = false
+      BGM.pause()
       pausePanel.style.backgroundImage = 'url(./assets/pause_musicOFF.png)'
     }
     else {
       musicIsOn = true
+      BGM.play()
       pausePanel.style.backgroundImage = 'url(./assets/pause_musicON.png)'
     }
   }
@@ -1356,6 +1361,10 @@ function dirToRight() {
 function gameOnControl() {  //初始状态：按方向键开始游戏 //settle结束，方向键继续游戏
   if (!gameOn) {
     gameOn = true
+    if (firstLoad) {
+      firstLoad = false
+      BGM.play()
+    }
     startLoop()
   }
   else if (settle && !settling) {
