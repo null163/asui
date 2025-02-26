@@ -103,7 +103,7 @@ function resize() {
   pausePanelHeight = 150 / 659 * windowHeight
   pausePanelWidth = 225 / 659 * windowHeight
   pausePanelTop = 205 / 659 * windowHeight
-  pausePanelLeft = windowWidth / 2 - pausePanelWidth / 2 - 2
+  pausePanelLeft = (windowWidth - pausePanelWidth) / 2
 
   musicWidth = 88 / 659 * windowHeight
   musicHeight = 37 / 659 * windowHeight
@@ -166,7 +166,7 @@ function resize() {
 
   keyboard.style.height = keyboardHeight + 'px'
   keyboard.style.width = gameWidth + 'px'
-  keyboard.style.top = gameWidth + Top - 2 + 'px'
+  keyboard.style.top = gameWidth + Top + 'px'
   keyboard.style.left = Left + 'px'
   keyboard.style.backgroundSize = gameWidth + 'px ' + keyboardHeight + 'px'
 
@@ -274,15 +274,6 @@ window.addEventListener('resize', function () {
   resize()
   drawGame()
 })
-
-// window.addEventListener("orientationchange", function () {
-//   resize()
-//   drawGame()
-// })
-
-// window.addEventListener("load", function () {  //监听页面加载
-//   resize()
-// })
 
 resize()
 init()
@@ -1364,9 +1355,9 @@ document.addEventListener('touchmove', function (e) {  //方向键按住拖动
   const touch = [...e.touches]
   touch.forEach((obj) => {
     const x = obj.clientX - (keyboardLeft + (windowWidth - gameWidth) / 2)
-    const y = obj.clientY - (keyboardTop + gameWidth + Top - 2)
-    // console.log(parseInt(x) + ', ' + parseInt(y));
-    if (x > -40 && y > -60 && x < dirControlWidth + 60 && y < dirControlWidth + 60) {
+    const y = obj.clientY - (keyboardTop + gameWidth + Top)
+    if (x > -30 / 659 * windowHeight && y > -60 / 659 * windowHeight && x < dirControlWidth + 60 / 659 * windowHeight && y < dirControlWidth + 60 / 659 * windowHeight) {
+      // console.log(parseInt(x) + ', ' + parseInt(y));
       if (x < y && x + y < dirControlWidth) {
         dirToLeft()
         gameOnControl()
@@ -1392,9 +1383,9 @@ document.addEventListener('touchstart', function (e) {  //方向键点击
   const touch = [...e.touches]
   touch.forEach((obj) => {
     const x = obj.clientX - (keyboardLeft + (windowWidth - gameWidth) / 2)
-    const y = obj.clientY - (keyboardTop + gameWidth + Top - 2)
-    // console.log(parseInt(x) + ', ' + parseInt(y));
-    if (x > -40 && y > -60 && x < dirControlWidth + 60 && y < dirControlWidth + 60) {
+    const y = obj.clientY - (keyboardTop + gameWidth + Top)
+    if (x > -30 / 659 * windowHeight && y > -60 / 659 * windowHeight && x < dirControlWidth + 60 / 659 * windowHeight && y < dirControlWidth + 60 / 659 * windowHeight) {
+      // console.log(parseInt(x) + ', ' + parseInt(y));
       if (x < y && x + y < dirControlWidth) {
         dirToLeft()
         gameOnControl()
