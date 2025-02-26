@@ -1360,7 +1360,6 @@ function gameOnControl() {  //初始状态：按方向键开始游戏 //settle�
   }
   else if (settle && !settling) {
     settle = false
-    foodLoop2()
     gameLoop()
   }
 }
