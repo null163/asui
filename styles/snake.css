@@ -3,11 +3,6 @@
     src: url(../fonts/douyuFont.otf);
 }
 
-@font-face {
-    font-family: myFont2;
-    src: url(../fonts/胡晓波萌萌体.ttf);
-}
-
 body {
     position: relative;
     margin: 0;

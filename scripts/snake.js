@@ -371,7 +371,7 @@ function foodLoop32() {  //食物循环(固定路线，速度变化)
 function foodLoop2() {  //食物循环(随机路线)
   moveFood2()
   drawGame()
-  if (gameOn && !pause && !gameOver && !settle) setTimeout(foodLoop2, foodSpeed2)
+  if (gameOn && !pause && !gameOver) setTimeout(foodLoop2, foodSpeed2)
 }
 
 function whetherEatFood() { //判断是否吃到食物
