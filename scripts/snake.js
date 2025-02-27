@@ -1177,7 +1177,7 @@ window.addEventListener('keyup', function (e) {  //键盘松开
 
 function musicControl() {  //音量键控制
   if (pausePanel.style.visibility === 'visible') {
-    if (musicIsOn) buttonSound.play()
+    buttonSound.play()
     if (musicIsOn) {
       musicIsOn = false
       // BGM.pause()
@@ -1373,7 +1373,7 @@ function gameOnControl() {  //初始状态：按方向键开始游戏 //settle�
     gameOn = true
     if (firstLoad) {
       firstLoad = false
-      // BGM.play()
+      BGM.play()
     }
     startLoop()
   }
