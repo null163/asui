@@ -384,7 +384,7 @@ function whetherEatFood() { //判断是否吃到食物
   food.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y) {
       eatFood = true
-      eatFoodSound.play()
+      if (musicIsOn) eatFoodSound.play()
       animateFun(obj.id * 5)
       snakeScore += obj.id * 5
       tail += obj.id
@@ -394,7 +394,7 @@ function whetherEatFood() { //判断是否吃到食物
   movingFood31.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
       eatFood = true
-      eatFoodSound.play()
+      if (musicIsOn) eatFoodSound.play()
       animateFun(obj.id * 5)
       snakeScore += obj.id * 5
       tail += obj.id
@@ -404,7 +404,7 @@ function whetherEatFood() { //判断是否吃到食物
   movingFood32.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
       eatFood = true
-      eatFoodSound.play()
+      if (musicIsOn) eatFoodSound.play()
       animateFun(obj.id * 5)
       snakeScore += obj.id * 5
       tail += obj.id
@@ -414,7 +414,7 @@ function whetherEatFood() { //判断是否吃到食物
   movingFood2.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
       eatFood = true
-      eatFoodSound.play()
+      if (musicIsOn) eatFoodSound.play()
       animateFun(obj.id * 5)
       snakeScore += obj.id * 5
       tail += obj.id
@@ -459,7 +459,7 @@ function whetherEnterHole() { //判断是否进入洞口
 }
 
 function settleScore() { //结算分数
-  settleSound.play()
+  if (musicIsOn) settleSound.play()
   settle = true
   settling = true
   holeExist = false
@@ -1177,7 +1177,7 @@ window.addEventListener('keyup', function (e) {  //键盘松开
 
 function musicControl() {  //音量键控制
   if (pausePanel.style.visibility === 'visible') {
-    buttonSound.play()
+    if (musicIsOn) buttonSound.play()
     if (musicIsOn) {
       musicIsOn = false
       // BGM.pause()
@@ -1203,7 +1203,7 @@ musicON.addEventListener('touchstart', function (e) {  //音量键(触屏)
 
 function continueButtonControl() {  //'继续'按钮控制
   if (pausePanel.style.visibility === 'visible') {
-    buttonSound.play()
+    if (musicIsOn) buttonSound.play()
     pause = false
     pauseButton.style.backgroundImage = 'url(./assets/pause_default.png)'
     pausePanel.style.visibility = 'hidden'
@@ -1213,7 +1213,6 @@ function continueButtonControl() {  //'继续'按钮控制
 
 continueButton.addEventListener('click', function (e) {  //继续(鼠标)
   e.preventDefault();
-  console.log(e.target);
   continueButtonControl()
 })
 
@@ -1224,7 +1223,7 @@ continueButton.addEventListener('touchstart', function (e) {  //继续(触屏)
 
 function againControl() {  //'再玩一次'按钮控制
   if (gameOver && gameOverPanelContainer.style.visibility === 'visible') {
-    buttonSound.play()
+    if (musicIsOn) buttonSound.play()
     gameOver = false
     gameOverPanelContainer.style.visibility = 'hidden'
     init()
