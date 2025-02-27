@@ -59,7 +59,7 @@ const maxScoreText = document.querySelector('.maxScore')
 const currentScoreText = document.querySelector('.currentScore')
 const key = document.querySelector('.key')
 
-const BGM = document.getElementById('BGM')
+// const BGM = document.getElementById('BGM')
 const buttonSound = document.getElementById('buttonSound')
 const eatFoodSound = document.getElementById('eatFoodSound')
 const settleSound = document.getElementById('settleSound')
@@ -384,7 +384,10 @@ function whetherEatFood() { //判断是否吃到食物
   food.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y) {
       eatFood = true
-      if (musicIsOn) eatFoodSound.play()
+      if (musicIsOn) {
+        eatFoodSound.currentTime = 0
+        eatFoodSound.play()
+      }
       animateFun(obj.id * 5)
       snakeScore += obj.id * 5
       tail += obj.id
@@ -394,7 +397,10 @@ function whetherEatFood() { //判断是否吃到食物
   movingFood31.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
       eatFood = true
-      if (musicIsOn) eatFoodSound.play()
+      if (musicIsOn) {
+        eatFoodSound.currentTime = 0
+        eatFoodSound.play()
+      }
       animateFun(obj.id * 5)
       snakeScore += obj.id * 5
       tail += obj.id
@@ -404,7 +410,10 @@ function whetherEatFood() { //判断是否吃到食物
   movingFood32.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
       eatFood = true
-      if (musicIsOn) eatFoodSound.play()
+      if (musicIsOn) {
+        eatFoodSound.currentTime = 0
+        eatFoodSound.play()
+      }
       animateFun(obj.id * 5)
       snakeScore += obj.id * 5
       tail += obj.id
@@ -414,7 +423,10 @@ function whetherEatFood() { //判断是否吃到食物
   movingFood2.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
       eatFood = true
-      if (musicIsOn) eatFoodSound.play()
+      if (musicIsOn) {
+        eatFoodSound.currentTime = 0
+        eatFoodSound.play()
+      }
       animateFun(obj.id * 5)
       snakeScore += obj.id * 5
       tail += obj.id
@@ -425,7 +437,7 @@ function whetherEatFood() { //判断是否吃到食物
 }
 
 function whetherBumpSnake() { //判断是否撞到蛇身
-  for (let idx = 2; idx < snake.length - 1; idx++) {
+  for (let idx = 2; idx < snake.length; idx++) {
     if (snake[0].x === snake[idx].x && snake[0].y - 1 === snake[idx].y && snake[0].dirY === -1) {
       GameOver()
       return
@@ -1159,9 +1171,11 @@ window.addEventListener('keydown', function (e) {  //键盘按下
   }
 
   //死亡状态：按空格键回到初始状态
-  if (gameOver && e.key === ' ' && gameOverPanelContainer.style.visibility === 'visible') {
+  if (gameOver && e.key === ' ' && maxScoreText.style.visibility === 'visible') {
     gameOver = false
     gameOverPanelContainer.style.visibility = 'hidden'
+    maxScoreText.style.visibility = 'hidden'
+    currentScoreText.style.visibility = 'hidden'
     init()
   }
 })
@@ -1177,6 +1191,7 @@ window.addEventListener('keyup', function (e) {  //键盘松开
 
 function musicControl() {  //音量键控制
   if (pausePanel.style.visibility === 'visible') {
+    buttonSound.currentTime = 0
     buttonSound.play()
     if (musicIsOn) {
       musicIsOn = false
@@ -1373,7 +1388,7 @@ function gameOnControl() {  //初始状态：按方向键开始游戏 //settle�
     gameOn = true
     if (firstLoad) {
       firstLoad = false
-      BGM.play()
+      // BGM.play()
     }
     startLoop()
   }
