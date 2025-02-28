@@ -6,9 +6,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>贪吃蛇大作战</title>
   <link rel="stylesheet" href="./styles/snake.css">
+  <link rel="icon" href="./assets/headV.png">
 </head>
 
 <body>
+  <!-- <audio src="./sounds/CuteJump.mp3" id="BGM" loop></audio> -->
+  <audio src="./sounds/开关.mp3" id="buttonSound" preload="auto"></audio>
+  <audio src="./sounds/啵.mp3" id="eatFoodSound" preload="auto"></audio>
+  <audio src="./sounds/升级.mp3" id="settleSound" preload="auto"></audio>
+
+  <img src="./assets/bent.png" style="display: none;">
+  <img src="./assets/deadH.png" style="display: none;">
+  <img src="./assets/deadV.png" style="display: none;">
+  <img src="./assets/headH.png" style="display: none;">
+  <img src="./assets/headV.png" style="display: none;">
+  <img src="./assets/straightH.png" style="display: none;">
+  <img src="./assets/straightV.png" style="display: none;">
+  <img src="./assets/tailH.png" style="display: none;">
+  <img src="./assets/tailV.png" style="display: none;">
+
+  <img src="./assets/hole.png" style="display: none;">
+  <img src="./assets/food1.png" style="display: none;">
+  <img src="./assets/food2.png" style="display: none;">
+  <img src="./assets/food3.png" style="display: none;">
+
+  <img src="./assets/pause_musicOFF.png" style="display: none;">
+  <img src="./assets/pause_musicON.png" style="display: none;">
+  <img src="./assets/gameOverPanel1.png" style="display: none;">
+  <img src="./assets/gameOverPanel2.png" style="display: none;">
+  <img src="./assets/gameOverPanel3.png" style="display: none;">
+
+  <img src="./assets/down_hold.png" style="display: none;">
+  <img src="./assets/left_hold.png" style="display: none;">
+  <img src="./assets/pause_hold.png" style="display: none;">
+  <img src="./assets/right_hold.png" style="display: none;">
+  <img src="./assets/speed_hold.png" style="display: none;">
+  <img src="./assets/up_hold.png" style="display: none;">
+
   <!-- 分数动画 -->
   <div class="scoreAnimate">
     <div class="scAniText">+5</div>
@@ -57,31 +91,6 @@
   </div>
 
   <div class="tip"></div>
-
-  <img src="./assets/bent.png" style="display: none;">
-  <img src="./assets/deadH.png" style="display: none;">
-  <img src="./assets/deadV.png" style="display: none;">
-  <img src="./assets/headH.png" style="display: none;">
-  <img src="./assets/headV.png" style="display: none;">
-  <img src="./assets/straightH.png" style="display: none;">
-  <img src="./assets/straightV.png" style="display: none;">
-  <img src="./assets/tailH.png" style="display: none;">
-  <img src="./assets/tailV.png" style="display: none;">
-
-  <img src="./assets/hole.png" style="display: none;">
-  <img src="./assets/food1.png" style="display: none;">
-  <img src="./assets/food2.png" style="display: none;">
-  <img src="./assets/food3.png" style="display: none;">
-
-  <img src="./assets/pause_musicOFF.png" style="display: none;">
-  <img src="./assets/pause_musicON.png" style="display: none;">
-
-  <img src="./assets/down_hold.png" style="display: none;">
-  <img src="./assets/left_hold.png" style="display: none;">
-  <img src="./assets/pause_hold.png" style="display: none;">
-  <img src="./assets/right_hold.png" style="display: none;">
-  <img src="./assets/speed_hold.png" style="display: none;">
-  <img src="./assets/up_hold.png" style="display: none;">
 
   <script src="./scripts/snake.js"></script>
 </body>
