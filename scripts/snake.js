@@ -295,8 +295,8 @@ function init() { //初始化
   foodSpeed32 = defaultSpeed
   totalScore = 0
   snakeScore = 0
-  bound1 = 1000
-  bound2 = 3000
+  bound1 = 500
+  bound2 = 1000
   scoreRefresh(0)
   tail = 0
   speedUp = false
@@ -345,7 +345,7 @@ function startLoop() {  //开启所有循环
 function gameLoop() { //主循环
   if (!pause) {
     if (!gameOver) whetherBumpSnake()
-    if (!gameOver) whetherEnterHole()
+    if (!gameOver && holeExist) whetherEnterHole()
     if (!gameOver && !settle) moveSnake()
     if (!gameOver && !settle) {
       if ((firstHole || snake.length > 15) && !holeExist) holeApply()
@@ -480,7 +480,6 @@ function settleScore() { //结算分数
   totalScore += snakeScore
   snakeScore = 0
   drawGame()
-  hole = {}
   settleLoop()
 }
 
@@ -518,7 +517,7 @@ function drawGame() { //打印贴图
   gameContainer.innerHTML = "";
 
   //打印洞口
-  if (holeExist) {
+  if (holeExist || settle) {
     const img = document.createElement("img")
     img.style.top = hole.y * cellSize / 659 * windowHeight + 'px'
     img.style.left = hole.x * cellSize / 659 * windowHeight + 'px'
@@ -542,19 +541,23 @@ function drawGame() { //打印贴图
   }
   else if (snake[0].dirX === 0 && snake[0].dirY === 1) {
     if (gameOver) head.src = './assets/deadV.png'
+    else if (speedUp) head.src = './assets/rushV.png'
     else head.src = './assets/headV.png'
   }
   else if (snake[0].dirX === 0 && snake[0].dirY === -1) {
     if (gameOver) head.src = './assets/deadV.png'
+    else if (speedUp) head.src = './assets/rushV.png'
     else head.src = './assets/headV.png'
     head.classList.add('flipV')
   }
   else if (snake[0].dirX === -1 && snake[0].dirY === 0) {
     if (gameOver) head.src = './assets/deadH.png'
+    else if (speedUp) head.src = './assets/rushH.png'
     else head.src = './assets/headH.png'
   }
   else if (snake[0].dirX === 1 && snake[0].dirY === 0) {
     if (gameOver) head.src = './assets/deadH.png'
+    else if (speedUp) head.src = './assets/rushH.png'
     else head.src = './assets/headH.png'
     head.classList.add('flipH')
   }
@@ -562,19 +565,23 @@ function drawGame() { //打印贴图
     if ((gameOver || settle) && snake.length > 1) {
       if (snake[0].dirX === 1 && snake[0].dirY === -1 && snake[1].x === snake[0].x + 1 || snake[0].dirX === -1 && snake[0].dirY === -1 && snake[1].x === snake[0].x - 1) {
         if (gameOver) head.src = './assets/deadV.png'
+        else if (speedUp) head.src = './assets/rushV.png'
         else head.src = './assets/headV.png'
         head.classList.add('flipV')
       }
       else if (snake[0].dirX === 1 && snake[0].dirY === 1 && snake[1].x === snake[0].x + 1 || snake[0].dirX === -1 && snake[0].dirY === 1 && snake[1].x === snake[0].x - 1) {
         if (gameOver) head.src = './assets/deadV.png'
+        else if (speedUp) head.src = './assets/rushV.png'
         else head.src = './assets/headV.png'
       }
       else if (snake[0].dirX === -1 && snake[0].dirY === 1 && snake[1].y === snake[0].y + 1 || snake[0].dirX === -1 && snake[0].dirY === -1 && snake[1].y === snake[0].y - 1) {
         if (gameOver) head.src = './assets/deadH.png'
+        else if (speedUp) head.src = './assets/rushH.png'
         else head.src = './assets/headH.png'
       }
       else if (snake[0].dirX === 1 && snake[0].dirY === -1 && snake[1].y === snake[0].y - 1 || snake[0].dirX === 1 && snake[0].dirY === 1 && snake[1].y === snake[0].y + 1) {
         if (gameOver) head.src = './assets/deadH.png'
+        else if (speedUp) head.src = './assets/rushH.png'
         else head.src = './assets/headH.png'
         head.classList.add('flipH')
       }
