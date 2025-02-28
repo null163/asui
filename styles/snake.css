@@ -8,13 +8,6 @@ body {
     margin: 0;
     overflow: hidden;
     background-image: url(../assets/bg2.png);
-    /* background-size: 1000px; */
-}
-
-.object {
-    /* width: 22px; */
-    /* height: 22px; */
-    position: absolute;
 }
 
 .flipH {
@@ -35,8 +28,6 @@ body {
 }
 
 .scoreAnimate {
-    /* width: 303px; */
-    /* height: 152px; */
     position: absolute;
     z-index: 4;
 }
@@ -53,79 +44,52 @@ body {
 }
 
 .bgHead {
-    /* width: 303px; */
-    /* height: 152px; */
     position: absolute;
     z-index: 3;
     background-image: url(../assets/bg4.png);
-    /* background-size: 303px 152px; */
 }
 
 .background {
-    /* height: 286px; */
-    /* width: 286px; */
     position: absolute;
     z-index: 2;
     background-image: url(../assets/bg.png);
-    /* background-size: 286px 286px; */
 }
 
 .bgKeyboard {
-    /* width: 286px; */
-    /* height: 221px; */
     display: flex;
     position: absolute;
     z-index: 1;
     background-image: url(../assets/bg3.png);
-    /* background-size: 286px 221px; */
 }
 
 .pause {
-    /* width: 53px; */
-    /* height: 53px; */
     position: absolute;
     background-image: url(../assets/pause_default.png);
-    /* background-size: 53px 53px; */
 }
 
 .speedUp {
-    /* width: 53px; */
-    /* height: 53px; */
     position: absolute;
     background-image: url(../assets/speed_default.png);
-    /* background-size: 53px 53px; */
 }
 
 .dirControl {
-    /* width: 157px; */
-    /* height: 157px; */
     position: absolute;
     background-image: url(../assets/keyboard_default.png);
-    /* background-size: 157px 157px; */
 }
 
 .key {
-    /* width: 157px; */
-    /* height: 157px; */
     position: absolute;
     z-index: 3;
 }
 
 .score {
-    /* margin-top: 123px; */
-    /* margin-left: 108px; */
-    /* font-size: 17px; */
     font-family: myFont;
-    /* letter-spacing: 1px; */
     color: white;
 }
 
 .tip {
-    /* width: 185px; */
-    /* height: 110px; */
     position: absolute;
     background-image: url(../assets/tip.png);
-    /* background-size: 185px 110px; */
 }
 
 .pausePanelContainer {
@@ -138,29 +102,15 @@ body {
 }
 
 .pausePanel {
-    /* width: 225px; */
-    /* height: 150px; */
-    /* display: flex; */
     background-image: url(../assets/pause_musicON.png);
-    /* background-size: 225px 150px; */
 }
 
 .musicON {
-    /* width: 95px; */
-    /* height: 40px; */
     position: absolute;
-    /* opacity: 0; */
-    /* background-image: url(../assets/ON.png); */
-    /* background-size: 95px 40px; */
 }
 
 .continue {
-    /* width: 73px; */
-    /* height: 40px; */
     position: absolute;
-    /* opacity: 0; */
-    /* background-image: url(../assets/continue.png); */
-    /* background-size: 73px 40px; */
 }
 
 .gameOverPanelContainer {
@@ -173,21 +123,11 @@ body {
 }
 
 .gameOverPanel {
-    /* width: 225px; */
-    /* height: 200px; */
-    /* position: relative;
-    z-index: 5;
-    visibility: hidden; */
     background-image: url(../assets/gameOverPanel1.png);
 }
 
 .again {
-    /* width: 100px; */
-    /* height: 37px; */
     position: absolute;
-    /* opacity: 0; */
-    /* background-image: url(../assets/again.png); */
-    /* background-size: 100px 37px; */
 }
 
 .maxScore {

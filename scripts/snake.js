@@ -521,7 +521,7 @@ function drawGame() { //打印贴图
     const img = document.createElement("img")
     img.style.top = hole.y * cellSize / 659 * windowHeight + 'px'
     img.style.left = hole.x * cellSize / 659 * windowHeight + 'px'
-    img.classList.add('object')
+    img.style.position = 'absolute'
     img.style.width = cellSize / 659 * windowHeight + 'px'
     img.style.height = cellSize / 659 * windowHeight + 'px'
     img.src = './assets/hole.png'
@@ -532,7 +532,7 @@ function drawGame() { //打印贴图
   const head = document.createElement("img")
   head.style.top = snake[0].y * cellSize / 659 * windowHeight + 'px'
   head.style.left = snake[0].x * cellSize / 659 * windowHeight + 'px'
-  head.classList.add('object')
+  head.style.position = 'absolute'
   head.style.width = cellSize / 659 * windowHeight + 'px'
   head.style.height = cellSize / 659 * windowHeight + 'px'
 
@@ -610,7 +610,7 @@ function drawGame() { //打印贴图
     const tail = document.createElement("img")
     tail.style.top = snake[snake.length - 1].y * cellSize / 659 * windowHeight + 'px'
     tail.style.left = snake[snake.length - 1].x * cellSize / 659 * windowHeight + 'px'
-    tail.classList.add('object')
+    tail.style.position = 'absolute'
     tail.style.width = cellSize / 659 * windowHeight + 'px'
     tail.style.height = cellSize / 659 * windowHeight + 'px'
     if (snake[snake.length - 1].dirX === 0 && snake[snake.length - 1].dirY === 1) {
@@ -652,7 +652,7 @@ function drawGame() { //打印贴图
       const img = document.createElement("img")
       img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
       img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
-      img.classList.add('object')
+      img.style.position = 'absolute'
       img.style.width = cellSize / 659 * windowHeight + 'px'
       img.style.height = cellSize / 659 * windowHeight + 'px'
       if (obj.dirX === 0 && obj.dirY === 1) {
@@ -691,7 +691,7 @@ function drawGame() { //打印贴图
       const img = document.createElement("img")
       img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
       img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
-      img.classList.add('object')
+      img.style.position = 'absolute'
       img.style.width = cellSize / 659 * windowHeight + 'px'
       img.style.height = cellSize / 659 * windowHeight + 'px'
       img.src = './assets/food' + obj.id + '.png'
@@ -701,7 +701,7 @@ function drawGame() { //打印贴图
       const img = document.createElement("img")
       img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
       img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
-      img.classList.add('object')
+      img.style.position = 'absolute'
       img.style.width = cellSize / 659 * windowHeight + 'px'
       img.style.height = cellSize / 659 * windowHeight + 'px'
       img.src = './assets/food' + obj.id + '.png'
@@ -711,7 +711,7 @@ function drawGame() { //打印贴图
       const img = document.createElement("img")
       img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
       img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
-      img.classList.add('object')
+      img.style.position = 'absolute'
       img.style.width = cellSize / 659 * windowHeight + 'px'
       img.style.height = cellSize / 659 * windowHeight + 'px'
       img.src = './assets/food' + obj.id + '.png'
@@ -721,7 +721,7 @@ function drawGame() { //打印贴图
       const img = document.createElement("img")
       img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
       img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
-      img.classList.add('object')
+      img.style.position = 'absolute'
       img.style.width = cellSize / 659 * windowHeight + 'px'
       img.style.height = cellSize / 659 * windowHeight + 'px'
       img.src = './assets/food' + obj.id + '.png'
