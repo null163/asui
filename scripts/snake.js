@@ -563,23 +563,27 @@ function drawGame() { //打印贴图
   }
   else {
     if ((gameOver || settle) && snake.length > 1) {
-      if (snake[0].dirX === 1 && snake[0].dirY === -1 && snake[1].x === snake[0].x + 1 || snake[0].dirX === -1 && snake[0].dirY === -1 && snake[1].x === snake[0].x - 1) {
+      if (snake[0].dirX === 1 && snake[0].dirY === -1 && snake[1].x === snake[0].x + 1 ||
+        snake[0].dirX === -1 && snake[0].dirY === -1 && snake[1].x === snake[0].x - 1) {
         if (gameOver) head.src = './assets/deadV.png'
         else if (speedUp) head.src = './assets/rushV.png'
         else head.src = './assets/headV.png'
         head.classList.add('flipV')
       }
-      else if (snake[0].dirX === 1 && snake[0].dirY === 1 && snake[1].x === snake[0].x + 1 || snake[0].dirX === -1 && snake[0].dirY === 1 && snake[1].x === snake[0].x - 1) {
+      else if (snake[0].dirX === 1 && snake[0].dirY === 1 && snake[1].x === snake[0].x + 1 ||
+        snake[0].dirX === -1 && snake[0].dirY === 1 && snake[1].x === snake[0].x - 1) {
         if (gameOver) head.src = './assets/deadV.png'
         else if (speedUp) head.src = './assets/rushV.png'
         else head.src = './assets/headV.png'
       }
-      else if (snake[0].dirX === -1 && snake[0].dirY === 1 && snake[1].y === snake[0].y + 1 || snake[0].dirX === -1 && snake[0].dirY === -1 && snake[1].y === snake[0].y - 1) {
+      else if (snake[0].dirX === -1 && snake[0].dirY === 1 && snake[1].y === snake[0].y + 1 ||
+        snake[0].dirX === -1 && snake[0].dirY === -1 && snake[1].y === snake[0].y - 1) {
         if (gameOver) head.src = './assets/deadH.png'
         else if (speedUp) head.src = './assets/rushH.png'
         else head.src = './assets/headH.png'
       }
-      else if (snake[0].dirX === 1 && snake[0].dirY === -1 && snake[1].y === snake[0].y - 1 || snake[0].dirX === 1 && snake[0].dirY === 1 && snake[1].y === snake[0].y + 1) {
+      else if (snake[0].dirX === 1 && snake[0].dirY === -1 && snake[1].y === snake[0].y - 1 ||
+        snake[0].dirX === 1 && snake[0].dirY === 1 && snake[1].y === snake[0].y + 1) {
         if (gameOver) head.src = './assets/deadH.png'
         else if (speedUp) head.src = './assets/rushH.png'
         else head.src = './assets/headH.png'
