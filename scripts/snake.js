@@ -104,7 +104,7 @@ function resize() {
   tipTop = 350 / 659 * windowHeight
   tipLeft = (windowWidth + gameWidth) / 2 + 105 / 659 * windowHeight
 
-  pausePanelHeight = 150 / 659 * windowHeight
+  pausePanelHeight = 155 / 659 * windowHeight
   pausePanelWidth = 225 / 659 * windowHeight
   pausePanelTop = 205 / 659 * windowHeight
   pausePanelLeft = (windowWidth - pausePanelWidth) / 2
