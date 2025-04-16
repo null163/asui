@@ -459,6 +459,7 @@ function settleScore() { //结算分数
   scoreRefreshLoop()
   totalScore += snakeScore
   snakeScore = 0
+  tail = 0
   drawGame()
   settleLoop()
 }
@@ -835,7 +836,6 @@ function moveFood2() {  //食物移动(随机路线)
 
 function deleteTail() { //删除尾部
   if (snake.length > 2 || snake.length > 1 && settle) snake.pop()
-  // console.log(snake);
 }
 
 function myRandom(x, y) { //x到y的随机整数
