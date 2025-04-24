@@ -1,4 +1,4 @@
-const assets = [
+const images = [
   "./assets/bent.png",
   "./assets/bg.png",
   "./assets/bg3.png",
@@ -36,17 +36,39 @@ const assets = [
   "./assets/up_hold.png"
 ]
 
+const BGMs = [
+  "./sounds/CuteJump.mp3"
+]
+
 let loadedCount = 0
-const totalAssets = assets.length
+const totalAssets = images.length + BGMs.length
 const progress = document.getElementById('test')
 
-function loadAsset(url) {
+function loadImage(url) {
   const asset = new Image()
   asset.onload = () => {
     loadedCount++
     progress.innerHTML = loadedCount
+    if (loadedCount === totalAssets) addScript()
   }
   asset.src = url
 }
 
-assets.forEach(loadAsset)
+function loadBGM(url) {
+  const asset = new Audio()
+  asset.onload = () => {
+    loadedCount++
+    progress.innerHTML = loadedCount
+    if (loadedCount === totalAssets) addScript()
+  }
+  asset.src = url
+}
+
+function addScript() {
+  const script = document.createElement('script')
+  script.src = './scripts/eventListener.js'
+  document.head.appendChild(script)
+}
+
+images.forEach(loadImage)
+BGMs.forEach(loadBGM)
