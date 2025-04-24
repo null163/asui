@@ -12,6 +12,9 @@ let totalScore                 //总分数
 let snakeScore                 //储存分数
 let bound1                     //第一阶段分数
 let bound2                     //第二阶段分数
+let foodscore1                 //食物1加的分数
+let foodscore2                 //食物2加的分数
+let foodscore3                 //食物3加的分数
 let tail                       //尾巴要加多长
 let speedUp                    //是否加速
 let eatFood                    //是否吃到食物
@@ -33,7 +36,6 @@ let movingFood2 = []    //食物的位置(随机路线)
 let foodWeight = []     //食物权重
 let hole                //洞的位置
 
-const body = document.querySelector('body')
 const whole = document.querySelector('.whole')
 const scoreAnimate = document.querySelector('.scoreAnimate')
 const head = document.querySelector('.bgHead')
@@ -85,67 +87,184 @@ function resize() {
   Top = (152 - 5) / 659 * windowHeight
   Left = (308 - 286) / 2 / 659 * windowHeight
 
+
+
+  // 版头
+  head.style.height = headHeight + 'px'
+  head.style.width = headWidth + 'px'
+  head.style.backgroundSize = headWidth + 'px ' + headHeight + 'px'
+
+  // 游戏界面
+  game.style.height = gameWidth + 'px'
+  game.style.width = gameWidth + 'px'
+  game.style.top = Top + 'px'
+  game.style.left = Left + 'px'
+  game.style.backgroundSize = gameWidth + 'px ' + gameWidth + 'px'
+
+  // 按键区
+  keyboard.style.height = keyboardHeight + 'px'
+  keyboard.style.width = gameWidth + 'px'
+  keyboard.style.top = gameWidth + Top + 'px'
+  keyboard.style.left = Left + 'px'
+  keyboard.style.backgroundSize = gameWidth + 'px ' + keyboardHeight + 'px'
+
+  whole.style.width = headWidth + 'px'
+
+  // 分数动画
+  scoreAnimate.style.width = headWidth + 'px'
+  scoreAnimate.style.height = headHeight + gameWidth + 'px'
+  scoreAnimate.style.left = (windowWidth - headWidth) / 2 + 'px'
   score1 = 123 / 659 * windowHeight
   score2 = 110 / 659 * windowHeight
   font = 17 / 659 * windowHeight
   letter = 1 / 659 * windowHeight
+
+  // 分数
+  scoreText.style.marginTop = score1 + 'px'
+  scoreText.style.marginLeft = score2 + 'px'
+  scoreText.style.fontSize = font + 'px'
+  scoreText.style.letterSpacing = letter + 'px'
 
   buttonWidth = 53 / 659 * windowHeight  //圆按钮直径
   buttonTop1 = 25 / 659 * windowHeight
   buttonTop2 = 100 / 659 * windowHeight
   buttonLeft = 32 / 659 * windowHeight
 
+  // 暂停按钮
+  pauseButton.style.height = buttonWidth + 'px'
+  pauseButton.style.width = buttonWidth + 'px'
+  pauseButton.style.backgroundSize = buttonWidth + 'px ' + buttonWidth + 'px'
+  pauseButton.style.top = buttonTop1 + 'px'
+  pauseButton.style.left = buttonLeft + 'px'
+
+  // 加速按钮
+  speedButton.style.height = buttonWidth + 'px'
+  speedButton.style.width = buttonWidth + 'px'
+  speedButton.style.backgroundSize = buttonWidth + 'px ' + buttonWidth + 'px'
+  speedButton.style.top = buttonTop2 + 'px'
+  speedButton.style.left = buttonLeft + 'px'
+
   dirControlWidth = 157 / 659 * windowHeight  //方向键边长
   keyboardTop = 12 / 659 * windowHeight
   keyboardLeft = 115 / 659 * windowHeight
+
+  // 方向键
+  dirControlButton.style.height = dirControlWidth + 'px'
+  dirControlButton.style.width = dirControlWidth + 'px'
+  dirControlButton.style.backgroundSize = dirControlWidth + 'px ' + dirControlWidth + 'px'
+  dirControlButton.style.top = keyboardTop + 'px'
+  dirControlButton.style.left = keyboardLeft + 'px'
+
+  // 方向键判定区
+  key.style.height = dirControlWidth + 'px'
+  key.style.width = dirControlWidth + 'px'
+  key.style.backgroundSize = dirControlWidth + 'px ' + dirControlWidth + 'px'
+  key.style.top = keyboardTop + 'px'
+  key.style.left = keyboardLeft + 'px'
 
   tipWidth = 185 / 659 * windowHeight
   tipHeight = 250 / 659 * windowHeight
   tipTop = 350 / 659 * windowHeight
   tipLeft = (windowWidth + gameWidth) / 2 + 105 / 659 * windowHeight
 
+  // 游戏提示
+  tip.style.height = tipHeight + 'px'
+  tip.style.width = tipWidth + 'px'
+  tip.style.backgroundSize = tipWidth + 'px ' + tipHeight + 'px'
+  tip.style.top = tipTop + 'px'
+  tip.style.left = tipLeft + 'px'
+
   pausePanelHeight = 155 / 659 * windowHeight
   pausePanelWidth = 225 / 659 * windowHeight
   pausePanelTop = 205 / 659 * windowHeight
   pausePanelLeft = (windowWidth - pausePanelWidth) / 2
+
+  // 暂停界面
+  pausePanelContainer.style.height = pausePanelHeight + 'px'
+  pausePanelContainer.style.width = pausePanelWidth + 'px'
+  pausePanelContainer.style.backgroundSize = pausePanelWidth + 'px ' + pausePanelHeight + 'px'
+  pausePanelContainer.style.top = pausePanelTop + 'px'
+  pausePanelContainer.style.left = pausePanelLeft + 'px'
+
+  pausePanel.style.height = pausePanelHeight + 'px'
+  pausePanel.style.width = pausePanelWidth + 'px'
+  pausePanel.style.backgroundSize = pausePanelWidth + 'px ' + pausePanelHeight + 'px'
 
   musicWidth = 88 / 659 * windowHeight
   musicHeight = 37 / 659 * windowHeight
   musicTop = 91 / 659 * windowHeight
   musicLeft = 30 / 659 * windowHeight
 
+  // 音乐开关按钮
+  musicON.style.height = musicHeight + 'px'
+  musicON.style.width = musicWidth + 'px'
+  musicON.style.backgroundSize = musicWidth + 'px ' + musicHeight + 'px'
+  musicON.style.top = musicTop + 'px'
+  musicON.style.left = musicLeft + 'px'
+
   continueHeight = 36 / 659 * windowHeight
   continueWidth = 68 / 659 * windowHeight
   continueTop = 90 / 659 * windowHeight
   continueLeft = 130 / 659 * windowHeight
 
+  // 继续按钮
+  continueButton.style.height = continueHeight + 'px'
+  continueButton.style.width = continueWidth + 'px'
+  continueButton.style.backgroundSize = continueWidth + 'px ' + continueHeight + 'px'
+  continueButton.style.top = continueTop + 'px'
+  continueButton.style.left = continueLeft + 'px'
+
   goHeight = 200 / 659 * windowHeight
   goWidth = 225 / 659 * windowHeight
   goTop = 20 / 659 * windowHeight
+
+  // 游戏结束界面
+  gameOverPanelContainer.style.height = goHeight + 'px'
+  gameOverPanelContainer.style.width = goWidth + 'px'
+  gameOverPanelContainer.style.top = goTop + 'px'
+  gameOverPanelContainer.style.left = pausePanelLeft + 'px'
+
+  // 游戏结束界面-背景
+  gameOverPanel.style.height = goHeight + 'px'
+  gameOverPanel.style.width = goWidth + 'px'
+  gameOverPanel.style.backgroundSize = goWidth + 'px ' + goHeight + 'px'
 
   againWidth = 105 / 659 * windowHeight
   againTop = 145 / 659 * windowHeight
   againLeft = 63 / 659 * windowHeight
 
+  // 重来按钮
+  again.style.height = continueHeight + 'px'
+  again.style.width = againWidth + 'px'
+  again.style.top = againTop + 'px'
+  again.style.left = againLeft + 'px'
+  again.style.backgroundSize = againWidth + 'px ' + continueHeight + 'px'
+
   maxScore1 = 83 / 659 * windowHeight
   maxScore2 = 107 / 659 * windowHeight
+
+  // 最高分
+  maxScoreText.style.top = maxScore1 + 'px'
+  maxScoreText.style.left = maxScore2 + 'px'
+  maxScoreText.style.fontSize = font + 'px'
+  maxScoreText.style.letterSpacing = letter + 'px'
 
   currentScore1 = 113 / 659 * windowHeight
   currentScore2 = 105 / 659 * windowHeight
 
+  // 当前分
+  currentScoreText.style.top = currentScore1 + 'px'
+  currentScoreText.style.left = currentScore2 + 'px'
+  currentScoreText.style.fontSize = font + 'px'
+  currentScoreText.style.letterSpacing = letter + 'px'
+
+  // 分数动画字体
   scAniWidth = cellSize / 659 * windowHeight
   scAniHeight = cellSize / 659 * windowHeight
   scAniFont1 = 14 / 659 * windowHeight
   scAniOutline = 1.2 / 659 * windowHeight
 
-  body.style.backgroundSize = bodySize + 'px'
-
-  whole.style.width = headWidth + 'px'
-
-  scoreAnimate.style.width = headWidth + 'px'
-  scoreAnimate.style.height = headHeight + gameWidth + 'px'
-  scoreAnimate.style.left = (windowWidth - headWidth) / 2 + 'px'
-
+  //分数动画
   keyFrames = [
     { fontSize: 0 + 'px' },
     { fontSize: scAniFont1 + 'px', offset: 0.15 },
@@ -158,61 +277,7 @@ function resize() {
     easing: 'ease-in-out'
   }
 
-  head.style.height = headHeight + 'px'
-  head.style.width = headWidth + 'px'
-  head.style.backgroundSize = headWidth + 'px ' + headHeight + 'px'
-
-  game.style.height = gameWidth + 'px'
-  game.style.width = gameWidth + 'px'
-  game.style.top = Top + 'px'
-  game.style.left = Left + 'px'
-  game.style.backgroundSize = gameWidth + 'px ' + gameWidth + 'px'
-
-  keyboard.style.height = keyboardHeight + 'px'
-  keyboard.style.width = gameWidth + 'px'
-  keyboard.style.top = gameWidth + Top + 'px'
-  keyboard.style.left = Left + 'px'
-  keyboard.style.backgroundSize = gameWidth + 'px ' + keyboardHeight + 'px'
-
-  pauseButton.style.height = buttonWidth + 'px'
-  pauseButton.style.width = buttonWidth + 'px'
-  pauseButton.style.backgroundSize = buttonWidth + 'px ' + buttonWidth + 'px'
-  pauseButton.style.top = buttonTop1 + 'px'
-  pauseButton.style.left = buttonLeft + 'px'
-
-  speedButton.style.height = buttonWidth + 'px'
-  speedButton.style.width = buttonWidth + 'px'
-  speedButton.style.backgroundSize = buttonWidth + 'px ' + buttonWidth + 'px'
-  speedButton.style.top = buttonTop2 + 'px'
-  speedButton.style.left = buttonLeft + 'px'
-
-  dirControlButton.style.height = dirControlWidth + 'px'
-  dirControlButton.style.width = dirControlWidth + 'px'
-  dirControlButton.style.backgroundSize = dirControlWidth + 'px ' + dirControlWidth + 'px'
-  dirControlButton.style.top = keyboardTop + 'px'
-  dirControlButton.style.left = keyboardLeft + 'px'
-
-  scoreText.style.marginTop = score1 + 'px'
-  scoreText.style.marginLeft = score2 + 'px'
-  scoreText.style.fontSize = font + 'px'
-  scoreText.style.letterSpacing = letter + 'px'
-
-  tip.style.height = tipHeight + 'px'
-  tip.style.width = tipWidth + 'px'
-  tip.style.backgroundSize = tipWidth + 'px ' + tipHeight + 'px'
-  tip.style.top = tipTop + 'px'
-  tip.style.left = tipLeft + 'px'
-
-  pausePanelContainer.style.height = pausePanelHeight + 'px'
-  pausePanelContainer.style.width = pausePanelWidth + 'px'
-  pausePanelContainer.style.backgroundSize = pausePanelWidth + 'px ' + pausePanelHeight + 'px'
-  pausePanelContainer.style.top = pausePanelTop + 'px'
-  pausePanelContainer.style.left = pausePanelLeft + 'px'
-
-  pausePanel.style.height = pausePanelHeight + 'px'
-  pausePanel.style.width = pausePanelWidth + 'px'
-  pausePanel.style.backgroundSize = pausePanelWidth + 'px ' + pausePanelHeight + 'px'
-
+  //暂停框动画
   keyFrames2 = [
     { height: 0 + 'px', width: 0 + 'px', backgroundSize: '0px 0px' },
     { height: pausePanelHeight + 'px', width: pausePanelWidth + 'px', backgroundSize: `${pausePanelWidth}px ${pausePanelHeight}px` }
@@ -224,54 +289,11 @@ function resize() {
     easing: 'ease-in-out'
   }
 
-  musicON.style.height = musicHeight + 'px'
-  musicON.style.width = musicWidth + 'px'
-  musicON.style.backgroundSize = musicWidth + 'px ' + musicHeight + 'px'
-  musicON.style.top = musicTop + 'px'
-  musicON.style.left = musicLeft + 'px'
-
-  continueButton.style.height = continueHeight + 'px'
-  continueButton.style.width = continueWidth + 'px'
-  continueButton.style.backgroundSize = continueWidth + 'px ' + continueHeight + 'px'
-  continueButton.style.top = continueTop + 'px'
-  continueButton.style.left = continueLeft + 'px'
-
-  gameOverPanelContainer.style.height = goHeight + 'px'
-  gameOverPanelContainer.style.width = goWidth + 'px'
-  gameOverPanelContainer.style.top = goTop + 'px'
-  gameOverPanelContainer.style.left = pausePanelLeft + 'px'
-
-  gameOverPanel.style.height = goHeight + 'px'
-  gameOverPanel.style.width = goWidth + 'px'
-  gameOverPanel.style.backgroundSize = goWidth + 'px ' + goHeight + 'px'
-
+  //结算框动画
   keyFrames3 = [
     { height: 0 + 'px', width: 0 + 'px', backgroundSize: '0px 0px' },
     { height: goHeight + 'px', width: goWidth + 'px', backgroundSize: `${goWidth}px ${goHeight}px` }
   ]
-
-  again.style.height = continueHeight + 'px'
-  again.style.width = againWidth + 'px'
-  again.style.top = againTop + 'px'
-  again.style.left = againLeft + 'px'
-  again.style.backgroundSize = againWidth + 'px ' + continueHeight + 'px'
-
-  maxScoreText.style.top = maxScore1 + 'px'
-  maxScoreText.style.left = maxScore2 + 'px'
-  maxScoreText.style.fontSize = font + 'px'
-  maxScoreText.style.letterSpacing = letter + 'px'
-
-  currentScoreText.style.top = currentScore1 + 'px'
-  currentScoreText.style.left = currentScore2 + 'px'
-  currentScoreText.style.fontSize = font + 'px'
-  currentScoreText.style.letterSpacing = letter + 'px'
-
-  key.style.height = dirControlWidth + 'px'
-  key.style.width = dirControlWidth + 'px'
-  key.style.backgroundSize = dirControlWidth + 'px ' + dirControlWidth + 'px'
-  key.style.top = keyboardTop + 'px'
-  key.style.left = keyboardLeft + 'px'
-
 }
 
 window.addEventListener('resize', function () {
@@ -294,6 +316,9 @@ function init() { //初始化
   snakeScore = 0
   bound1 = 150
   bound2 = 300
+  foodscore1 = 5
+  foodscore2 = 10
+  foodscore3 = 15
   scoreRefresh(0)
   tail = 0
   speedUp = false
@@ -381,36 +406,36 @@ function whetherEatFood() { //判断是否吃到食物
   food.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y) {
       eatFood = true
-      animateFun(obj.id * 5)
-      snakeScore += obj.id * 5
-      tail += obj.id
+      animateFun(foodscore1)
+      snakeScore += foodscore1
+      tail += 1
       food.splice(idx, 1)
     }
   })
   movingFood31.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
       eatFood = true
-      animateFun(obj.id * 5)
-      snakeScore += obj.id * 5
-      tail += obj.id
+      animateFun(foodscore3)
+      snakeScore += foodscore3
+      tail += 5
       movingFood31.splice(idx, 1)
     }
   })
   movingFood32.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
       eatFood = true
-      animateFun(obj.id * 5)
-      snakeScore += obj.id * 5
-      tail += obj.id
+      animateFun(foodscore3)
+      snakeScore += foodscore3
+      tail += 5
       movingFood32.splice(idx, 1)
     }
   })
   movingFood2.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
       eatFood = true
-      animateFun(obj.id * 5)
-      snakeScore += obj.id * 5
-      tail += obj.id
+      animateFun(foodscore2)
+      snakeScore += foodscore2
+      tail += 3
       movingFood2.splice(idx, 1)
     }
   })
@@ -509,86 +534,49 @@ function drawGame() { //打印贴图
     gameContainer.appendChild(img)
   }
 
-  //打印头部
-  const head = document.createElement("img")
-  head.style.top = snake[0].y * cellSize / 659 * windowHeight + 'px'
-  head.style.left = snake[0].x * cellSize / 659 * windowHeight + 'px'
-  head.style.position = 'absolute'
-  head.style.width = cellSize / 659 * windowHeight + 'px'
-  head.style.height = cellSize / 659 * windowHeight + 'px'
-
-  if (!gameOn && !gameOver) {
-    head.src = './assets/sleep.png'
+  //打印食物
+  if (gameOn) {
+    food.forEach(obj => {
+      const img = document.createElement("img")
+      img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
+      img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
+      img.style.position = 'absolute'
+      img.style.width = cellSize / 659 * windowHeight + 'px'
+      img.style.height = cellSize / 659 * windowHeight + 'px'
+      img.src = './assets/food' + obj.id + '.png'
+      gameContainer.appendChild(img)
+    })
+    movingFood31.forEach(obj => {
+      const img = document.createElement("img")
+      img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
+      img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
+      img.style.position = 'absolute'
+      img.style.width = cellSize / 659 * windowHeight + 'px'
+      img.style.height = cellSize / 659 * windowHeight + 'px'
+      img.src = './assets/food' + obj.id + '.png'
+      gameContainer.appendChild(img)
+    })
+    movingFood32.forEach(obj => {
+      const img = document.createElement("img")
+      img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
+      img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
+      img.style.position = 'absolute'
+      img.style.width = cellSize / 659 * windowHeight + 'px'
+      img.style.height = cellSize / 659 * windowHeight + 'px'
+      img.src = './assets/food' + obj.id + '.png'
+      gameContainer.appendChild(img)
+    })
+    movingFood2.forEach(obj => {
+      const img = document.createElement("img")
+      img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
+      img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
+      img.style.position = 'absolute'
+      img.style.width = cellSize / 659 * windowHeight + 'px'
+      img.style.height = cellSize / 659 * windowHeight + 'px'
+      img.src = './assets/food' + obj.id + '.png'
+      gameContainer.appendChild(img)
+    })
   }
-  else if (snake[0].dirX === 0 && snake[0].dirY === 1) {
-    if (gameOver) head.src = './assets/deadV.png'
-    else if (speedUp) head.src = './assets/rushV.png'
-    else head.src = './assets/headV.png'
-  }
-  else if (snake[0].dirX === 0 && snake[0].dirY === -1) {
-    if (gameOver) head.src = './assets/deadV.png'
-    else if (speedUp) head.src = './assets/rushV.png'
-    else head.src = './assets/headV.png'
-    head.classList.add('flipV')
-  }
-  else if (snake[0].dirX === -1 && snake[0].dirY === 0) {
-    if (gameOver) head.src = './assets/deadH.png'
-    else if (speedUp) head.src = './assets/rushH.png'
-    else head.src = './assets/headH.png'
-  }
-  else if (snake[0].dirX === 1 && snake[0].dirY === 0) {
-    if (gameOver) head.src = './assets/deadH.png'
-    else if (speedUp) head.src = './assets/rushH.png'
-    else head.src = './assets/headH.png'
-    head.classList.add('flipH')
-  }
-  else {
-    if ((gameOver || settle) && snake.length > 1) {
-      if (snake[0].dirX === 1 && snake[0].dirY === -1 && snake[1].x === snake[0].x + 1 ||
-        snake[0].dirX === -1 && snake[0].dirY === -1 && snake[1].x === snake[0].x - 1) {
-        if (gameOver) head.src = './assets/deadV.png'
-        else if (speedUp) head.src = './assets/rushV.png'
-        else head.src = './assets/headV.png'
-        head.classList.add('flipV')
-      }
-      else if (snake[0].dirX === 1 && snake[0].dirY === 1 && snake[1].x === snake[0].x + 1 ||
-        snake[0].dirX === -1 && snake[0].dirY === 1 && snake[1].x === snake[0].x - 1) {
-        if (gameOver) head.src = './assets/deadV.png'
-        else if (speedUp) head.src = './assets/rushV.png'
-        else head.src = './assets/headV.png'
-      }
-      else if (snake[0].dirX === -1 && snake[0].dirY === 1 && snake[1].y === snake[0].y + 1 ||
-        snake[0].dirX === -1 && snake[0].dirY === -1 && snake[1].y === snake[0].y - 1) {
-        if (gameOver) head.src = './assets/deadH.png'
-        else if (speedUp) head.src = './assets/rushH.png'
-        else head.src = './assets/headH.png'
-      }
-      else if (snake[0].dirX === 1 && snake[0].dirY === -1 && snake[1].y === snake[0].y - 1 ||
-        snake[0].dirX === 1 && snake[0].dirY === 1 && snake[1].y === snake[0].y + 1) {
-        if (gameOver) head.src = './assets/deadH.png'
-        else if (speedUp) head.src = './assets/rushH.png'
-        else head.src = './assets/headH.png'
-        head.classList.add('flipH')
-      }
-    }
-    else if (snake.length > 1) {
-      if (snake[1].x === snake[0].x && snake[1].y === snake[0].y - 1) {
-        head.src = './assets/headV.png'
-      }
-      else if (snake[1].x === snake[0].x && snake[1].y === snake[0].y + 1) {
-        head.src = './assets/headV.png'
-        head.classList.add('flipV')
-      }
-      else if (snake[1].x === snake[0].x + 1 && snake[1].y === snake[0].y) {
-        head.src = './assets/headH.png'
-      }
-      else if (snake[1].x === snake[0].x - 1 && snake[1].y === snake[0].y) {
-        head.src = './assets/headH.png'
-        head.classList.add('flipH')
-      }
-    }
-  }
-  gameContainer.appendChild(head)
 
   //打印尾部
   if (snake.length > 1) {
@@ -670,49 +658,86 @@ function drawGame() { //打印贴图
     }
   })
 
-  //打印食物
-  if (gameOn) {
-    food.forEach(obj => {
-      const img = document.createElement("img")
-      img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
-      img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
-      img.style.position = 'absolute'
-      img.style.width = cellSize / 659 * windowHeight + 'px'
-      img.style.height = cellSize / 659 * windowHeight + 'px'
-      img.src = './assets/food' + obj.id + '.png'
-      gameContainer.appendChild(img)
-    })
-    movingFood31.forEach(obj => {
-      const img = document.createElement("img")
-      img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
-      img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
-      img.style.position = 'absolute'
-      img.style.width = cellSize / 659 * windowHeight + 'px'
-      img.style.height = cellSize / 659 * windowHeight + 'px'
-      img.src = './assets/food' + obj.id + '.png'
-      gameContainer.appendChild(img)
-    })
-    movingFood32.forEach(obj => {
-      const img = document.createElement("img")
-      img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
-      img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
-      img.style.position = 'absolute'
-      img.style.width = cellSize / 659 * windowHeight + 'px'
-      img.style.height = cellSize / 659 * windowHeight + 'px'
-      img.src = './assets/food' + obj.id + '.png'
-      gameContainer.appendChild(img)
-    })
-    movingFood2.forEach(obj => {
-      const img = document.createElement("img")
-      img.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
-      img.style.left = obj.x * cellSize / 659 * windowHeight + 'px'
-      img.style.position = 'absolute'
-      img.style.width = cellSize / 659 * windowHeight + 'px'
-      img.style.height = cellSize / 659 * windowHeight + 'px'
-      img.src = './assets/food' + obj.id + '.png'
-      gameContainer.appendChild(img)
-    })
+  //打印头部
+  const head = document.createElement("img")
+  head.style.top = snake[0].y * cellSize / 659 * windowHeight + 'px'
+  head.style.left = snake[0].x * cellSize / 659 * windowHeight + 'px'
+  head.style.position = 'absolute'
+  head.style.width = cellSize / 659 * windowHeight + 'px'
+  head.style.height = cellSize / 659 * windowHeight + 'px'
+
+  if (!gameOn && !gameOver) {
+    head.src = './assets/sleep.png'
   }
+  else if (snake[0].dirX === 0 && snake[0].dirY === 1) {
+    if (gameOver) head.src = './assets/deadV.png'
+    else if (speedUp) head.src = './assets/rushV.png'
+    else head.src = './assets/headV.png'
+  }
+  else if (snake[0].dirX === 0 && snake[0].dirY === -1) {
+    if (gameOver) head.src = './assets/deadV.png'
+    else if (speedUp) head.src = './assets/rushV.png'
+    else head.src = './assets/headV.png'
+    head.classList.add('flipV')
+  }
+  else if (snake[0].dirX === -1 && snake[0].dirY === 0) {
+    if (gameOver) head.src = './assets/deadH.png'
+    else if (speedUp) head.src = './assets/rushH.png'
+    else head.src = './assets/headH.png'
+  }
+  else if (snake[0].dirX === 1 && snake[0].dirY === 0) {
+    if (gameOver) head.src = './assets/deadH.png'
+    else if (speedUp) head.src = './assets/rushH.png'
+    else head.src = './assets/headH.png'
+    head.classList.add('flipH')
+  }
+  else {
+    if ((gameOver || settle) && snake.length > 1) {
+      if (snake[0].dirX === 1 && snake[0].dirY === -1 && snake[1].x === snake[0].x + 1 ||
+        snake[0].dirX === -1 && snake[0].dirY === -1 && snake[1].x === snake[0].x - 1) {
+        if (gameOver) head.src = './assets/deadV.png'
+        else if (speedUp) head.src = './assets/rushV.png'
+        else head.src = './assets/headV.png'
+        head.classList.add('flipV')
+      }
+      else if (snake[0].dirX === 1 && snake[0].dirY === 1 && snake[1].x === snake[0].x + 1 ||
+        snake[0].dirX === -1 && snake[0].dirY === 1 && snake[1].x === snake[0].x - 1) {
+        if (gameOver) head.src = './assets/deadV.png'
+        else if (speedUp) head.src = './assets/rushV.png'
+        else head.src = './assets/headV.png'
+      }
+      else if (snake[0].dirX === -1 && snake[0].dirY === 1 && snake[1].y === snake[0].y + 1 ||
+        snake[0].dirX === -1 && snake[0].dirY === -1 && snake[1].y === snake[0].y - 1) {
+        if (gameOver) head.src = './assets/deadH.png'
+        else if (speedUp) head.src = './assets/rushH.png'
+        else head.src = './assets/headH.png'
+      }
+      else if (snake[0].dirX === 1 && snake[0].dirY === -1 && snake[1].y === snake[0].y - 1 ||
+        snake[0].dirX === 1 && snake[0].dirY === 1 && snake[1].y === snake[0].y + 1) {
+        if (gameOver) head.src = './assets/deadH.png'
+        else if (speedUp) head.src = './assets/rushH.png'
+        else head.src = './assets/headH.png'
+        head.classList.add('flipH')
+      }
+    }
+    else if (snake.length > 1) {
+      if (snake[1].x === snake[0].x && snake[1].y === snake[0].y - 1) {
+        head.src = './assets/headV.png'
+      }
+      else if (snake[1].x === snake[0].x && snake[1].y === snake[0].y + 1) {
+        head.src = './assets/headV.png'
+        head.classList.add('flipV')
+      }
+      else if (snake[1].x === snake[0].x + 1 && snake[1].y === snake[0].y) {
+        head.src = './assets/headH.png'
+      }
+      else if (snake[1].x === snake[0].x - 1 && snake[1].y === snake[0].y) {
+        head.src = './assets/headH.png'
+        head.classList.add('flipH')
+      }
+    }
+  }
+  gameContainer.appendChild(head)
 
   //打印地图边缘线
   const img = document.createElement("img")
@@ -1124,7 +1149,7 @@ function GameOver() { //游戏结束
   setTimeout(function () {
     maxScoreText.style.visibility = 'visible'
     currentScoreText.style.visibility = 'visible'
-  }, s + 250)
+  }, s + 350)
 }
 
 window.addEventListener('keydown', function (e) {  //键盘按下
@@ -1208,7 +1233,7 @@ function continueButtonControl() {  //'继续'按钮控制
     pause = false
     pauseButton.style.backgroundImage = 'url(./assets/pause_default.png)'
     pausePanel.style.visibility = 'hidden'
-    startLoop()
+    if (gameOn) startLoop()
   }
 }
 
@@ -1386,7 +1411,8 @@ function gameOnControl() {  //初始状态：按方向键开始游戏 //settle�
 }
 
 document.addEventListener('touchmove', function (e) {  //方向键按住拖动  
-  e.preventDefault();
+  e.preventDefault()
+  if (settling) return
   const touch = [...e.touches]
   touch.forEach((obj) => {
     const x = obj.clientX - (keyboardLeft + (windowWidth - gameWidth) / 2)
@@ -1415,6 +1441,7 @@ document.addEventListener('touchmove', function (e) {  //方向键按住拖动
 
 document.addEventListener('touchstart', function (e) {  //方向键点击
   e.preventDefault();
+  if (settling) return
   const touch = [...e.touches]
   touch.forEach((obj) => {
     const x = obj.clientX - (keyboardLeft + (windowWidth - gameWidth) / 2)
