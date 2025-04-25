@@ -57,6 +57,11 @@ function addScript() {
   const script = document.createElement('script')
   script.src = './scripts/eventListener.js'
   document.head.appendChild(script)
+
+  const link = document.createElement('link')
+  link.rel = "stylesheet"
+  link.href = "./styles/loading.css"
+  document.head.appendChild(link)
 }
 
 images.forEach(loadImage)
@@ -68,3 +73,4 @@ document.addEventListener('touchstart', function (e) {
 document.addEventListener('touchmove', function (e) {
   e.preventDefault();
 }, { passive: false })
+

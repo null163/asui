@@ -46,35 +46,27 @@ body {
 .bgHead {
     position: absolute;
     z-index: 3;
-    background-image: url(../assets/bg4.png);
 }
 
 .background {
     position: absolute;
     z-index: 2;
-    background-image: url(../assets/bg.png);
 }
 
 .bgKeyboard {
     display: flex;
     position: absolute;
     z-index: 1;
-    background-image: url(../assets/bg3.png);
 }
 
-.pause {
+.pause,
+.speedUp,
+.dirControl,
+.tip,
+.musicON,
+.continue,
+.again {
     position: absolute;
-    background-image: url(../assets/pause_default.png);
-}
-
-.speedUp {
-    position: absolute;
-    background-image: url(../assets/speed_default.png);
-}
-
-.dirControl {
-    position: absolute;
-    background-image: url(../assets/keyboard_default.png);
 }
 
 .key {
@@ -87,11 +79,6 @@ body {
     color: white;
 }
 
-.tip {
-    position: absolute;
-    background-image: url(../assets/tip.png);
-}
-
 .pausePanelContainer {
     position: relative;
     z-index: 5;
@@ -101,18 +88,6 @@ body {
     align-items: center;
 }
 
-.pausePanel {
-    background-image: url(../assets/pause_musicON.png);
-}
-
-.musicON {
-    position: absolute;
-}
-
-.continue {
-    position: absolute;
-}
-
 .gameOverPanelContainer {
     position: relative;
     z-index: 5;
@@ -120,14 +95,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.gameOverPanel {
-    background-image: url(../assets/gameOverPanel1.png);
-}
-
-.again {
-    position: absolute;
 }
 
 .maxScore {
