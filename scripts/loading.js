@@ -112,3 +112,5 @@ document.addEventListener('touchmove', function (e) {
 }, { passive: false })
 
 window.addEventListener('resize', loadingResize)
+
+window.addEventListener("DOMContentLoaded", loadingResize)

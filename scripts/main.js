@@ -297,8 +297,10 @@ window.addEventListener('resize', function () {
   drawGame()
 })
 
-resize()
-init()
+window.addEventListener("DOMContentLoaded", function () {
+  resize()
+  init()
+})
 
 function init() { //初始化
   defaultSpeed = 300
