@@ -38,19 +38,25 @@ const images = [
 
 let loadedCount = 0
 const totalAssets = images.length
-const progress = document.getElementById('test')
+const progress = document.querySelector('.loadingText')
+const container = document.querySelector('.loadingContainer')
 
 function loadImage(url) {
   const asset = new Image()
   asset.onload = () => {
     loadedCount++
-    progress.innerHTML = loadedCount
+    progress.innerHTML = 'LOADING…' + trans(loadedCount, totalAssets) + '%'
     if (loadedCount === totalAssets) {
-      progress.innerHTML = 'done'
       addScript()
+      container.style.visibility = 'hidden'
     }
   }
   asset.src = url
+}
+
+//转化为百分比
+function trans(fz, fm) {
+  return parseInt(fz * 100 / fm)
 }
 
 function addScript() {
@@ -73,4 +79,3 @@ document.addEventListener('touchstart', function (e) {
 document.addEventListener('touchmove', function (e) {
   e.preventDefault();
 }, { passive: false })
-

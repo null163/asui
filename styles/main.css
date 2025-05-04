@@ -3,6 +3,11 @@
     src: url(../fonts/douyuFont0-9.woff2);
 }
 
+@font-face {
+    font-family: myFont2;
+    src: url(../fonts/huxiaoboLOADING.woff2);
+}
+
 body {
     position: relative;
     margin: 0;
@@ -109,4 +114,23 @@ body {
     position: absolute;
     font-family: myFont;
     color: #ccc2ff;
+}
+
+.loadingContainer {
+    background-color: #e2e0ff;
+    position: absolute;
+    z-index: 6;
+}
+
+
+.loadingImg {
+    position: absolute;
+    z-index: 7;
+}
+
+.loadingText {
+    position: absolute;
+    z-index: 7;
+    font-family: myFont2;
+    color: #8f72ed;
 }
