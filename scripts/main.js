@@ -61,9 +61,6 @@ const maxScoreText = document.querySelector('.maxScore')
 const currentScoreText = document.querySelector('.currentScore')
 const key = document.querySelector('.key')
 const BGM = document.getElementById('bgm')
-const loadingContainer = document.querySelector('.loadingContainer')
-const loadingImg = document.querySelector('.loadingImg')
-const loadingText = document.querySelector('.loadingText')
 
 let windowHeight, bodySize, gameWidth, headHeight, headWidth, dirControlWidth
 let keyboardHeight, buttonWidth, buttonTop1, buttonTop2, buttonLeft, i, goTop
@@ -74,8 +71,6 @@ let musicWidth, musicHeight, musicTop, musicLeft, continueHeight, againWidth
 let continueWidth, continueTop, continueLeft, goHeight, goWidth, scAniWidth
 let maxScore1, maxScore2, currentScore1, currentScore2, scAniHeight, scAniFont1
 let keyFrames, timing, animation, scAniOutline, keyFrames2, timing2, keyFrames3
-let loadingWidth, loadingHeight, loadingTop
-let loadingTextLeft
 
 //按屏幕比例缩放
 function resize() {
@@ -295,27 +290,6 @@ function resize() {
     { height: 0 + 'px', width: 0 + 'px', backgroundSize: '0px 0px' },
     { height: goHeight + 'px', width: goWidth + 'px', backgroundSize: `${goWidth}px ${goHeight}px` }
   ]
-
-  //loading界面
-  loadingContainer.style.height = windowHeight + 'px'
-  loadingContainer.style.width = windowWidth + 'px'
-  loadingContainer.style.top = 0
-  loadingContainer.style.left = 0
-
-  //loading图案
-  loadingHeight = 137 / 659 * windowHeight
-  loadingWidth = 350 / 659 * windowHeight
-  loadingTop = 160 / 659 * windowHeight
-
-  loadingImg.style.height = loadingHeight + 'px'
-  loadingImg.style.width = loadingWidth + 'px'
-  loadingImg.style.top = loadingTop + 'px'
-  loadingImg.style.left = (windowWidth - loadingWidth) / 2 + 'px'
-
-  //loading文字
-  loadingText.style.top = loadingTop + 145 / 659 * windowHeight + 'px'
-  loadingText.style.left = windowWidth / 2 - 60 / 659 * windowHeight + 'px'
-  loadingText.style.fontSize = font + 'px'
 }
 
 window.addEventListener('resize', function () {
