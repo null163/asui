@@ -104,13 +104,11 @@ function loadingResize() {
 }
 
 document.addEventListener('touchstart', function (e) {
-  e.preventDefault();
+  e.preventDefault()
 }, { passive: false })
 
 document.addEventListener('touchmove', function (e) {
-  e.preventDefault();
+  e.preventDefault()
 }, { passive: false })
 
 window.addEventListener('resize', loadingResize)
-
-window.addEventListener("DOMContentLoaded", loadingResize)
