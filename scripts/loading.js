@@ -45,7 +45,7 @@ const loadingImg = document.querySelector('.loadingImg')
 const loadingText = document.querySelector('.loadingText')
 
 loadingResize()
-images.forEach(loadImage)
+// images.forEach(loadImage)
 
 function loadImage(url) {
   const asset = new Image()
