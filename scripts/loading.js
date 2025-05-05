@@ -37,7 +37,6 @@ const images = [
 ]
 
 let loadedCount = 0
-let loadingWindowHeight, loadingWindowWidth, loadingWidth, loadingHeight, loadingTop, loadingTextLeft, loadingFont
 const totalAssets = images.length
 const progress = document.querySelector('.loadingText')
 
@@ -50,7 +49,7 @@ function loadImage(url) {
     progress.innerHTML = 'LOADING…' + trans(loadedCount, totalAssets) + '%'
     if (loadedCount === totalAssets) {
       addScript()
-      loadingContainer.style.visibility = 'hidden'
+      // loadingContainer.style.visibility = 'hidden'
     }
   }
   asset.src = url
