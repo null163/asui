@@ -109,8 +109,7 @@ body {
 }
 
 .loadingContainer {
-    /* background-color: #e2e0ff; */
-    background-color: #7fb6ff82;
+    background-color: #e2e0ff;
     position: absolute;
     z-index: 6;
 }

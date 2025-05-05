@@ -49,7 +49,7 @@ function loadImage(url) {
     progress.innerHTML = 'LOADING…' + trans(loadedCount, totalAssets) + '%'
     if (loadedCount === totalAssets) {
       addScript()
-      // loadingContainer.style.visibility = 'hidden'
+      loadingContainer.style.visibility = 'hidden'
     }
   }
   asset.src = url
