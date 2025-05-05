@@ -60,6 +60,7 @@ const again = document.querySelector('.again')
 const maxScoreText = document.querySelector('.maxScore')
 const currentScoreText = document.querySelector('.currentScore')
 const key = document.querySelector('.key')
+
 const BGM = document.getElementById('bgm')
 
 let windowHeight, bodySize, gameWidth, headHeight, headWidth, dirControlWidth
@@ -70,10 +71,8 @@ let pausePanelWidth, pausePanelTop, pausePanelLeft, againTop, againLeft
 let musicWidth, musicHeight, musicTop, musicLeft, continueHeight, againWidth
 let continueWidth, continueTop, continueLeft, goHeight, goWidth, scAniWidth
 let maxScore1, maxScore2, currentScore1, currentScore2, scAniHeight, scAniFont1
-let keyFrames, timing, animation, scAniOutline, keyFrames2, timing2, keyFrames3
 
-resize()
-init()
+let keyFrames, timing, animation, scAniOutline, keyFrames2, timing2, keyFrames3
 
 //按屏幕比例缩放
 function resize() {
@@ -87,6 +86,8 @@ function resize() {
   keyboardHeight = 221 / 659 * windowHeight
   Top = (152 - 5) / 659 * windowHeight
   Left = (308 - 286) / 2 / 659 * windowHeight
+
+
 
   // 版头
   head.style.height = headHeight + 'px'
@@ -299,6 +300,9 @@ window.addEventListener('resize', function () {
   resize()
   drawGame()
 })
+
+resize()
+init()
 
 function init() { //初始化
   defaultSpeed = 300
@@ -974,6 +978,118 @@ function judge(X, Y) {  //判断该位置是否为空
   else return false
 }
 
+// function foodApply1(id) {  //矩形
+//   let x1 = 6, y1 = 1, i1 = 1;
+//   (function fn1() {
+//     foodApplyXY(x1, y1, id)
+//     drawGame()
+//     if (i1 < 5) setTimeout(fn1, foodSpeed)
+//     x1--
+//     y1++
+//     i1++
+//   })();
+
+//   let x2 = 1, y2 = 6, i2 = 1;
+//   (function fn2() {
+//     foodApplyXY(x2, y2, id)
+//     drawGame()
+//     if (i2 < 5) setTimeout(fn2, foodSpeed)
+//     x2++
+//     y2++
+//     i2++
+//   })();
+
+//   let x3 = 6, y3 = 11, i3 = 1;
+//   (function fn3() {
+//     foodApplyXY(x3, y3, id)
+//     drawGame()
+//     if (i3 < 5) setTimeout(fn3, foodSpeed)
+//     x3++
+//     y3--
+//     i3++
+//   })();
+
+//   let x4 = 11, y4 = 6, i4 = 1;
+//   (function fn4() {
+//     foodApplyXY(x4, y4, id)
+//     drawGame()
+//     if (i4 < 5) setTimeout(fn4, foodSpeed)
+//     x4--
+//     y4--
+//     i4++
+//   })();
+// }
+
+// function foodApply2(id) {  //心形
+//   let x1 = 6, y1 = 4, i = 1
+//   let x2 = 6, y2 = 4
+//   let x3 = 3, y3 = 2
+//   let x4 = 9, y4 = 2
+//   let x5 = 1, y5 = 5
+//   let x6 = 11, y6 = 5;
+//   (function fn() {
+//     if (i <= 3) {
+//       foodApplyXY(x1, y1, id)
+//       foodApplyXY(x2, y2, id)
+//     }
+//     else if (i <= 6) {
+//       foodApplyXY(x3, y3, id)
+//       foodApplyXY(x4, y4, id)
+//     }
+//     else {
+//       foodApplyXY(x5, y5, id)
+//       foodApplyXY(x6, y6, id)
+//     }
+//     drawGame()
+//     if (i < 12) setTimeout(fn, foodSpeed)
+//     if (i <= 3) { x1--; y1--; x2++; y2-- }
+//     else if (i <= 6) { x3--; y3++; x4++; y4++ }
+//     else { x5++; y5++; x6--; y6++ }
+//     i++
+//   })();
+// }
+
+// function foodApply3(id) {  //上下
+//   let x1 = 0, y1 = 0, i = 1
+//   let x2 = 11, y2 = 1
+//   let x3 = 1, y3 = 11
+//   let x4 = 12, y4 = 12;
+//   (function fn() {
+//     foodApplyXY(x1, y1, id)
+//     foodApplyXY(x2, y2, id)
+//     foodApplyXY(x3, y3, id)
+//     foodApplyXY(x4, y4, id)
+//     drawGame()
+//     if (i < 7) setTimeout(fn, foodSpeed)
+//     x1 += 2; x2 -= 2
+//     x3 += 2; x4 -= 2
+//     i++
+//   })();
+// }
+
+// function foodApply4(id) {  //五点
+//   let x1 = 2, y1 = 2, i = 1;
+//   (function fn() {
+//     foodApplyXY(x1, y1, id)
+//     foodApplyXY(x1 + 8, y1, id)
+//     foodApplyXY(x1 + 8, y1 + 6, id)
+//     foodApplyXY(x1, y1 + 6, id)
+//     foodApplyXY(x1 + 4, y1 + 3, id)
+//     drawGame()
+//     if (i < 4) setTimeout(fn, foodSpeed)
+//     if (i === 1) {
+//       x1++; y1++
+//     }
+//     else if (i === 2) {
+//       x1--; y1++
+//     }
+//     else if (i === 3) {
+//       x1--; y1--
+//     }
+//     i++
+//   })();
+// }
+
 function holeApply() { //洞口刷新
   if (firstHole) {
     firstHole = false
@@ -1036,6 +1152,57 @@ function GameOver() { //游戏结束
   }, s + 350)
 }
 
+window.addEventListener('keydown', function (e) {  //键盘按下
+  e.preventDefault();
+  //空格键暂停
+  if (e.key === ' ') {
+    pauseButtonControl()
+  }
+  else if (pause) return
+
+  switch (e.key) {
+    case 'ArrowUp':
+      dirToUp()
+      break
+    case 'ArrowDown':
+      dirToDown()
+      break
+    case 'ArrowLeft':
+      dirToLeft()
+      break
+    case 'ArrowRight':
+      dirToRight()
+      break
+    case 's':
+      if (!speedUp) speedStart()
+      break
+  }
+
+  //初始状态：按方向键开始游戏
+  //settle结束，方向键继续游戏
+  if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+    gameOnControl()
+  }
+
+  //死亡状态：按空格键回到初始状态
+  if (gameOver && e.key === ' ' && maxScoreText.style.visibility === 'visible') {
+    gameOver = false
+    gameOverPanelContainer.style.visibility = 'hidden'
+    maxScoreText.style.visibility = 'hidden'
+    currentScoreText.style.visibility = 'hidden'
+    init()
+  }
+})
+
+window.addEventListener('keyup', function (e) {  //键盘松开
+  e.preventDefault();
+  if (e.key === 's') speedEnd()
+
+  if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+    dirControlButton.style.backgroundImage = 'url(./assets/keyboard_default.png)'
+  }
+})
+
 function musicControl() {  //音量键控制
   if (pausePanel.style.visibility === 'visible') {
     if (musicIsOn) {
@@ -1051,6 +1218,16 @@ function musicControl() {  //音量键控制
   }
 }
 
+musicON.addEventListener('click', function (e) {  //音量键(鼠标)
+  e.preventDefault();
+  musicControl()
+})
+
+musicON.addEventListener('touchstart', function (e) {  //音量键(触屏)
+  e.preventDefault();
+  musicControl()
+})
+
 function continueButtonControl() {  //'继续'按钮控制
   if (pausePanel.style.visibility === 'visible') {
     pause = false
@@ -1060,6 +1237,16 @@ function continueButtonControl() {  //'继续'按钮控制
   }
 }
 
+continueButton.addEventListener('click', function (e) {  //继续(鼠标)
+  e.preventDefault();
+  continueButtonControl()
+})
+
+continueButton.addEventListener('touchstart', function (e) {  //继续(触屏)
+  e.preventDefault();
+  continueButtonControl()
+})
+
 function againControl() {  //'再玩一次'按钮控制
   if (gameOver && gameOverPanelContainer.style.visibility === 'visible') {
     gameOver = false
@@ -1067,6 +1254,16 @@ function againControl() {  //'再玩一次'按钮控制
     init()
   }
 }
+
+again.addEventListener('touchstart', function (e) {  //再玩一次(触屏)
+  e.preventDefault();
+  againControl()
+})
+
+again.addEventListener('click', function (e) {  //再玩一次(鼠标)
+  e.preventDefault();
+  againControl()
+})
 
 function pauseButtonControl() {  //暂停键控制
   if (!gameOver) {
@@ -1086,6 +1283,11 @@ function pauseButtonControl() {  //暂停键控制
   }
 }
 
+pauseButton.addEventListener('touchstart', function (e) {  //暂停键
+  e.preventDefault();
+  pauseButtonControl()
+})
+
 function speedStart() {  //加速开始
   if (!speedUp) {
     speedUp = true
@@ -1103,6 +1305,21 @@ function speedEnd() {  //加速结束
     foodSpeed32 = defaultSpeed
   }
 }
+
+speedButton.addEventListener('touchstart', function (e) {  //加速键按住
+  e.preventDefault();
+  speedStart()
+})
+
+speedButton.addEventListener('touchend', function (e) {  //抬起：加速取消
+  e.preventDefault();
+  speedEnd()
+})
+
+key.addEventListener('touchend', function (e) {  //抬起：方向键取消
+  e.preventDefault();
+  dirControlButton.style.backgroundImage = 'url(./assets/keyboard_default.png)'
+})
 
 function dirToUp() {
   if (!gameOver) {
@@ -1192,3 +1409,61 @@ function gameOnControl() {  //初始状态：按方向键开始游戏 //settle�
     gameLoop()
   }
 }
+
+document.addEventListener('touchmove', function (e) {  //方向键按住拖动  
+  e.preventDefault()
+  if (settling) return
+  const touch = [...e.touches]
+  touch.forEach((obj) => {
+    const x = obj.clientX - (keyboardLeft + (windowWidth - gameWidth) / 2)
+    const y = obj.clientY - (keyboardTop + gameWidth + Top)
+    if (x > -30 / 659 * windowHeight && y > -60 / 659 * windowHeight && x < dirControlWidth + 60 / 659 * windowHeight && y < dirControlWidth + 60 / 659 * windowHeight) {
+      // console.log(parseInt(x) + ', ' + parseInt(y));
+      if (x < y && x + y < dirControlWidth) {
+        dirToLeft()
+        gameOnControl()
+      }
+      else if (x > y && x + y < dirControlWidth) {
+        dirToUp()
+        gameOnControl()
+      }
+      else if (x > y && x + y > dirControlWidth) {
+        dirToRight()
+        gameOnControl()
+      }
+      else if (x < y && x + y > dirControlWidth) {
+        dirToDown()
+        gameOnControl()
+      }
+    }
+  })
+}, { passive: false })
+
+document.addEventListener('touchstart', function (e) {  //方向键点击
+  e.preventDefault();
+  if (settling) return
+  const touch = [...e.touches]
+  touch.forEach((obj) => {
+    const x = obj.clientX - (keyboardLeft + (windowWidth - gameWidth) / 2)
+    const y = obj.clientY - (keyboardTop + gameWidth + Top)
+    if (x > -30 / 659 * windowHeight && y > -60 / 659 * windowHeight && x < dirControlWidth + 60 / 659 * windowHeight && y < dirControlWidth + 60 / 659 * windowHeight) {
+      // console.log(parseInt(x) + ', ' + parseInt(y));
+      if (x < y && x + y < dirControlWidth) {
+        dirToLeft()
+        gameOnControl()
+      }
+      else if (x > y && x + y < dirControlWidth) {
+        dirToUp()
+        gameOnControl()
+      }
+      else if (x > y && x + y > dirControlWidth) {
+        dirToRight()
+        gameOnControl()
+      }
+      else if (x < y && x + y > dirControlWidth) {
+        dirToDown()
+        gameOnControl()
+      }
+    }
+  })
+}, { passive: false })
