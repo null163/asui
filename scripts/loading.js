@@ -40,12 +40,8 @@ let loadedCount = 0
 let loadingWindowHeight, loadingWindowWidth, loadingWidth, loadingHeight, loadingTop, loadingTextLeft, loadingFont
 const totalAssets = images.length
 const progress = document.querySelector('.loadingText')
-const loadingContainer = document.querySelector('.loadingContainer')
-const loadingImg = document.querySelector('.loadingImg')
-const loadingText = document.querySelector('.loadingText')
 
-loadingResize()
-// images.forEach(loadImage)
+images.forEach(loadImage)
 
 function loadImage(url) {
   const asset = new Image()
@@ -76,33 +72,6 @@ function addScript() {
   document.head.appendChild(link)
 }
 
-function loadingResize() {
-  loadingWindowHeight = window.innerHeight
-  loadingWindowWidth = window.innerWidth
-  loadingFont = 17 / 659 * loadingWindowHeight
-
-  //loading界面
-  loadingContainer.style.height = loadingWindowHeight + 'px'
-  loadingContainer.style.width = loadingWindowWidth + 'px'
-  loadingContainer.style.top = 0
-  loadingContainer.style.left = 0
-
-  //loading图案
-  loadingHeight = 137 / 659 * loadingWindowHeight
-  loadingWidth = 350 / 659 * loadingWindowHeight
-  loadingTop = 160 / 659 * loadingWindowHeight
-
-  loadingImg.style.height = loadingHeight + 'px'
-  loadingImg.style.width = loadingWidth + 'px'
-  loadingImg.style.top = loadingTop + 'px'
-  loadingImg.style.left = (loadingWindowWidth - loadingWidth) / 2 + 'px'
-
-  //loading文字
-  loadingText.style.top = loadingTop + 145 / 659 * loadingWindowHeight + 'px'
-  loadingText.style.left = loadingWindowWidth / 2 - 60 / 659 * loadingWindowHeight + 'px'
-  loadingText.style.fontSize = loadingFont + 'px'
-}
-
 document.addEventListener('touchstart', function (e) {
   e.preventDefault()
 }, { passive: false })
@@ -110,5 +79,3 @@ document.addEventListener('touchstart', function (e) {
 document.addEventListener('touchmove', function (e) {
   e.preventDefault()
 }, { passive: false })
-
-window.addEventListener('resize', loadingResize)
