@@ -41,9 +41,13 @@
   <img src="./assets/pause_hold.png" style="display: none;">
   <img src="./assets/speed_hold.png" style="display: none;">
 
-  <!-- 分数动画 -->
-  <div class="scoreAnimate">
+  <div class="loadingContainer">
+    <img src="./assets/loading.png" class="loadingImg">
+    <div class="loadingText">LOADING…10%</div>
   </div>
+
+  <!-- 分数动画 -->
+  <div class="scoreAnimate"></div>
 
   <div class="whole">
     <!-- 版头 -->
@@ -85,11 +89,6 @@
       <div class="maxScore">66644</div>
       <div class="currentScore">10000</div>
     </div>
-  </div>
-
-  <div class="loadingContainer">
-    <img src="./assets/loading.png" class="loadingImg">
-    <div class="loadingText">LOADING…10%</div>
   </div>
 
   <audio src="./sounds/CuteJump.mp3" id="bgm" preload="auto" loop></audio>

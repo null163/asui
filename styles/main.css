@@ -84,24 +84,6 @@ body {
     color: white;
 }
 
-.pausePanelContainer {
-    position: relative;
-    z-index: 5;
-    visibility: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.gameOverPanelContainer {
-    position: relative;
-    z-index: 5;
-    visibility: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .maxScore {
     visibility: hidden;
     position: absolute;
@@ -116,12 +98,22 @@ body {
     color: #ccc2ff;
 }
 
+.pausePanelContainer,
+.gameOverPanelContainer {
+    visibility: hidden;
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .loadingContainer {
-    background-color: #e2e0ff;
+    /* background-color: #e2e0ff; */
+    background-color: #877fff82;
     position: absolute;
     z-index: 6;
 }
-
 
 .loadingImg {
     position: absolute;

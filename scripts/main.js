@@ -297,7 +297,6 @@ function resize() {
     { height: goHeight + 'px', width: goWidth + 'px', backgroundSize: `${goWidth}px ${goHeight}px` }
   ]
 
-
   loadingFont = 17 / 659 * windowHeight
 
   //loading界面
