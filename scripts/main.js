@@ -296,25 +296,23 @@ function resize() {
     { height: goHeight + 'px', width: goWidth + 'px', backgroundSize: `${goWidth}px ${goHeight}px` }
   ]
 
+  //loading
+  loadingHeight = 137 / 659 * windowHeight
+  loadingWidth = 350 / 659 * windowHeight
+  loadingTop = 160 / 659 * windowHeight
   loadingFont = 17 / 659 * windowHeight
 
-  //loading界面
   loadingContainer.style.height = windowHeight + 'px'
   loadingContainer.style.width = windowWidth + 'px'
   loadingContainer.style.top = 0
   loadingContainer.style.left = 0
 
-  //loading图案
-  loadingHeight = 137 / 659 * windowHeight
-  loadingWidth = 350 / 659 * windowHeight
-  loadingTop = 160 / 659 * windowHeight
-
   loadingImg.style.height = loadingHeight + 'px'
   loadingImg.style.width = loadingWidth + 'px'
   loadingImg.style.top = loadingTop + 'px'
   loadingImg.style.left = (windowWidth - loadingWidth) / 2 + 'px'
+  loadingImg.style.backgroundSize = loadingWidth + 'px ' + loadingHeight + 'px'
 
-  //loading文字
   loadingText.style.top = loadingTop + 145 / 659 * windowHeight + 'px'
   loadingText.style.left = windowWidth / 2 - 60 / 659 * windowHeight + 'px'
   loadingText.style.fontSize = loadingFont + 'px'

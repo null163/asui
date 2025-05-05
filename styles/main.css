@@ -110,12 +110,13 @@ body {
 
 .loadingContainer {
     /* background-color: #e2e0ff; */
-    background-color: #877fff82;
+    background-color: #7fb6ff82;
     position: absolute;
     z-index: 6;
 }
 
 .loadingImg {
+    background-image: url(../assets/loading.png);
     position: absolute;
     z-index: 7;
 }
